@@ -5,6 +5,7 @@
 project(remeres)
 
 find_package(asio CONFIG REQUIRED)
+find_package(wxWidgets CONFIG REQUIRED)
 find_package(fmt CONFIG REQUIRED)
 find_package(GLUT REQUIRED)
 find_package(nlohmann_json CONFIG REQUIRED)
@@ -13,6 +14,7 @@ find_package(Threads REQUIRED)
 find_package(wxWidgets COMPONENTS html aui gl adv core net base CONFIG REQUIRED)
 find_package(ZLIB REQUIRED)
 find_package(pugixml CONFIG REQUIRED)
+find_package(Boost REQUIRED COMPONENTS spirit utility)
 
 option(TOGGLE_BIN_FOLDER "Use build/bin folder for generate compilation files" OFF)
 option(OPTIONS_ENABLE_OPENMP "Enable Open Multi-Processing support." ON)
@@ -206,15 +208,16 @@ target_include_directories(${PROJECT_NAME}
 )
 
 target_link_libraries(${PROJECT_NAME}
-	PRIVATE
-	${OPENGL_LIBRARIES}
-	${GLUT_LIBRARIES}
-	${ZLIB_LIBRARIES}
-	fmt::fmt
-	asio::asio
-	nlohmann_json::nlohmann_json
-	pugixml::pugixml
-	wx::base wx::core wx::net wx::gl wx::html wx::aui wx::adv
+    PRIVATE
+    ${OPENGL_LIBRARIES}
+    ${GLUT_LIBRARIES}
+    ${ZLIB_LIBRARIES}
+    fmt::fmt
+    asio::asio
+    nlohmann_json::nlohmann_json
+    pugixml::pugixml
+    wx::base wx::core wx::net wx::gl wx::html wx::aui wx::adv
+    Boost::spirit Boost::utility
 )
 
 ## Link compilation files to build/bin folder, else link to the main dir
