@@ -1,204 +1,241 @@
-set(rme_H
-${CMAKE_CURRENT_LIST_DIR}/about_window.h
-${CMAKE_CURRENT_LIST_DIR}/action.h
-${CMAKE_CURRENT_LIST_DIR}/application.h
-${CMAKE_CURRENT_LIST_DIR}/artprovider.h
-${CMAKE_CURRENT_LIST_DIR}/basemap.h
-${CMAKE_CURRENT_LIST_DIR}/browse_tile_window.h
-${CMAKE_CURRENT_LIST_DIR}/brush.h
-${CMAKE_CURRENT_LIST_DIR}/brush_enums.h
-${CMAKE_CURRENT_LIST_DIR}/carpet_brush.h
-${CMAKE_CURRENT_LIST_DIR}/client_version.h
-${CMAKE_CURRENT_LIST_DIR}/common.h
-${CMAKE_CURRENT_LIST_DIR}/common_windows.h
-${CMAKE_CURRENT_LIST_DIR}/complexitem.h
-${CMAKE_CURRENT_LIST_DIR}/con_vector.h
-${CMAKE_CURRENT_LIST_DIR}/container_properties_window.h
-${CMAKE_CURRENT_LIST_DIR}/copybuffer.h
-${CMAKE_CURRENT_LIST_DIR}/creature.h
-${CMAKE_CURRENT_LIST_DIR}/creature_brush.h
-${CMAKE_CURRENT_LIST_DIR}/creatures.h
-${CMAKE_CURRENT_LIST_DIR}/dat_debug_view.h
-${CMAKE_CURRENT_LIST_DIR}/dcbutton.h
-${CMAKE_CURRENT_LIST_DIR}/definitions.h
-${CMAKE_CURRENT_LIST_DIR}/doodad_brush.h
-${CMAKE_CURRENT_LIST_DIR}/editor.h
-${CMAKE_CURRENT_LIST_DIR}/editor_tabs.h
-${CMAKE_CURRENT_LIST_DIR}/extension.h
-${CMAKE_CURRENT_LIST_DIR}/extension_window.h
-${CMAKE_CURRENT_LIST_DIR}/find_item_window.h
-${CMAKE_CURRENT_LIST_DIR}/filehandle.h
-${CMAKE_CURRENT_LIST_DIR}/graphics.h
-${CMAKE_CURRENT_LIST_DIR}/ground_brush.h
-${CMAKE_CURRENT_LIST_DIR}/gui.h
-${CMAKE_CURRENT_LIST_DIR}/gui_ids.h
-${CMAKE_CURRENT_LIST_DIR}/house.h
-${CMAKE_CURRENT_LIST_DIR}/house_brush.h
-${CMAKE_CURRENT_LIST_DIR}/house_exit_brush.h
-${CMAKE_CURRENT_LIST_DIR}/iomap.h
-${CMAKE_CURRENT_LIST_DIR}/iomap_otbm.h
-#${CMAKE_CURRENT_LIST_DIR}/iomap_otmm.h
-${CMAKE_CURRENT_LIST_DIR}/item.h
-${CMAKE_CURRENT_LIST_DIR}/item_attributes.h
-${CMAKE_CURRENT_LIST_DIR}/items.h
-${CMAKE_CURRENT_LIST_DIR}/json.h
-${CMAKE_CURRENT_LIST_DIR}/light_drawer.h
-${CMAKE_CURRENT_LIST_DIR}/live_action.h
-${CMAKE_CURRENT_LIST_DIR}/live_client.h
-${CMAKE_CURRENT_LIST_DIR}/live_packets.h
-${CMAKE_CURRENT_LIST_DIR}/live_peer.h
-${CMAKE_CURRENT_LIST_DIR}/live_server.h
-${CMAKE_CURRENT_LIST_DIR}/live_socket.h
-${CMAKE_CURRENT_LIST_DIR}/live_tab.h
-${CMAKE_CURRENT_LIST_DIR}/main.h
-${CMAKE_CURRENT_LIST_DIR}/main_menubar.h
-${CMAKE_CURRENT_LIST_DIR}/main_toolbar.h
-${CMAKE_CURRENT_LIST_DIR}/map.h
-${CMAKE_CURRENT_LIST_DIR}/map_allocator.h
-${CMAKE_CURRENT_LIST_DIR}/map_display.h
-${CMAKE_CURRENT_LIST_DIR}/map_drawer.h
-${CMAKE_CURRENT_LIST_DIR}/map_region.h
-${CMAKE_CURRENT_LIST_DIR}/map_tab.h
-${CMAKE_CURRENT_LIST_DIR}/map_window.h
-${CMAKE_CURRENT_LIST_DIR}/materials.h
-${CMAKE_CURRENT_LIST_DIR}/minimap_window.h
-${CMAKE_CURRENT_LIST_DIR}/mt_rand.h
-${CMAKE_CURRENT_LIST_DIR}/net_connection.h
-${CMAKE_CURRENT_LIST_DIR}/numbertextctrl.h
-${CMAKE_CURRENT_LIST_DIR}/old_properties_window.h
-${CMAKE_CURRENT_LIST_DIR}/otml.h
-${CMAKE_CURRENT_LIST_DIR}/outfit.h
-${CMAKE_CURRENT_LIST_DIR}/palette_brushlist.h
-${CMAKE_CURRENT_LIST_DIR}/palette_common.h
-${CMAKE_CURRENT_LIST_DIR}/palette_creature.h
-${CMAKE_CURRENT_LIST_DIR}/palette_house.h
-${CMAKE_CURRENT_LIST_DIR}/palette_waypoints.h
-${CMAKE_CURRENT_LIST_DIR}/palette_window.h
-${CMAKE_CURRENT_LIST_DIR}/pngfiles.h
-${CMAKE_CURRENT_LIST_DIR}/position.h
-${CMAKE_CURRENT_LIST_DIR}/positionctrl.h
-${CMAKE_CURRENT_LIST_DIR}/preferences.h
-${CMAKE_CURRENT_LIST_DIR}/process_com.h
-${CMAKE_CURRENT_LIST_DIR}/properties_window.h
-${CMAKE_CURRENT_LIST_DIR}/raw_brush.h
-${CMAKE_CURRENT_LIST_DIR}/replace_items_window.h
-${CMAKE_CURRENT_LIST_DIR}/result_window.h
-${CMAKE_CURRENT_LIST_DIR}/rme_forward_declarations.h
-${CMAKE_CURRENT_LIST_DIR}/rme_net.h
-${CMAKE_CURRENT_LIST_DIR}/selection.h
-${CMAKE_CURRENT_LIST_DIR}/settings.h
-${CMAKE_CURRENT_LIST_DIR}/spawn.h
-${CMAKE_CURRENT_LIST_DIR}/spawn_brush.h
-${CMAKE_CURRENT_LIST_DIR}/sprites.h
-${CMAKE_CURRENT_LIST_DIR}/table_brush.h
-${CMAKE_CURRENT_LIST_DIR}/templates.h
-${CMAKE_CURRENT_LIST_DIR}/threads.h
-${CMAKE_CURRENT_LIST_DIR}/tile.h
-${CMAKE_CURRENT_LIST_DIR}/tileset.h
-${CMAKE_CURRENT_LIST_DIR}/town.h
-${CMAKE_CURRENT_LIST_DIR}/updater.h
-${CMAKE_CURRENT_LIST_DIR}/wall_brush.h
-${CMAKE_CURRENT_LIST_DIR}/waypoint_brush.h
-${CMAKE_CURRENT_LIST_DIR}/waypoints.h
-${CMAKE_CURRENT_LIST_DIR}/welcome_dialog.h
+
+# *****************************************************************************
+# Project remeres
+# *****************************************************************************
+project(remeres)
+
+find_package(asio CONFIG REQUIRED)
+find_package(fmt CONFIG REQUIRED)
+find_package(GLUT REQUIRED)
+find_package(nlohmann_json CONFIG REQUIRED)
+find_package(OpenGL REQUIRED)
+find_package(Threads REQUIRED)
+find_package(wxWidgets COMPONENTS html aui gl adv core net base CONFIG REQUIRED)
+find_package(ZLIB REQUIRED)
+find_package(pugixml CONFIG REQUIRED)
+
+option(TOGGLE_BIN_FOLDER "Use build/bin folder for generate compilation files" OFF)
+option(OPTIONS_ENABLE_OPENMP "Enable Open Multi-Processing support." ON)
+option(DEBUG_LOG "Enable Debug Log" OFF)
+option(BUILD_STATIC_LIBRARY "Build using static libraries" ON)
+option(SPEED_UP_BUILD_UNITY "Compile using build unity for speed up build" ON)
+
+# LibArchive disabled in compilation level by default, see "#define OTGZ_SUPPORT" in the "definitions.h" file
+#if(APPLE)
+#	set(CMAKE_PREFIX_PATH /usr/local/opt/libarchive)
+#endif()
+# If you need use, enable this:
+#find_package(LibArchive REQUIRED)
+#${LibArchive_INCLUDE_DIRS} ${LibArchive_LIBRARIES}
+
+# Build static libs
+if(BUILD_STATIC_LIBRARY)
+	log_option_enabled("STATIC_LIBRARY")
+
+	if(MSVC)
+		set(CMAKE_FIND_LIBRARY_SUFFIXES ".lib")
+	elseif(UNIX AND NOT APPLE)
+		set(CMAKE_FIND_LIBRARY_SUFFIXES ".a")
+	elseif(APPLE)
+		set(CMAKE_FIND_LIBRARY_SUFFIXES ".a" ".dylib")
+	endif()
+else()
+	log_option_disabled("STATIC_LIBRARY")
+endif()
+
+# === DEBUG LOG ===
+# cmake -DDEBUG_LOG=ON ..
+if(DEBUG_LOG)
+	add_definitions(-DDEBUG_LOG=ON)
+	log_option_enabled("DEBUG LOG")
+else()
+	log_option_disabled("DEBUG LOG")
+endif(DEBUG_LOG)
+
+if (MSVC)
+	add_executable(${PROJECT_NAME} "" ../cmake/remeres.rc)
+
+	if(BUILD_STATIC_LIBRARY)
+		set(CMAKE_CXX_FLAGS_RELEASE "/MT")
+		set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "/MT")
+		set(CMAKE_CXX_FLAGS_DEBUG "/MTd")
+		set_property(TARGET ${PROJECT_NAME} PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+	endif()
+
+	target_compile_options(${PROJECT_NAME} PUBLIC /MP /FS /Zf /EHsc )
+else()
+	add_executable(${PROJECT_NAME} "")
+endif()
+
+# === OpenMP ===
+if(OPTIONS_ENABLE_OPENMP)
+	log_option_enabled("openmp")
+	find_package(OpenMP)
+	if(OpenMP_CXX_FOUND)
+		target_link_libraries(${PROJECT_NAME} PUBLIC OpenMP::OpenMP_CXX)
+	endif()
+else()
+	log_option_disabled("openmp")
+endif()
+
+# === IPO ===
+check_ipo_supported(RESULT result OUTPUT output)
+if(result)
+	set_property(TARGET ${PROJECT_NAME} PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)
+else()
+	message(WARNING "IPO is not supported: ${output}")
+endif()
+
+# === PRECOMPILED HEADER ===
+target_precompile_headers(${PROJECT_NAME} PRIVATE main.h)
+
+# === UNITY BUILD (compile time reducer) ===
+if(SPEED_UP_BUILD_UNITY)
+	set_target_properties(${PROJECT_NAME} PROPERTIES UNITY_BUILD ON)
+	log_option_enabled("Build unity for speed up compilation")
+endif()
+
+
+target_sources(${PROJECT_NAME}
+	PRIVATE
+	about_window.cpp
+	action.cpp
+	actions_history_window.cpp
+	add_item_window.cpp
+	add_tileset_window.cpp
+	application.cpp
+	artprovider.cpp
+	basemap.cpp
+	brush.cpp
+	brush_tables.cpp
+	browse_tile_window.cpp
+	positionctrl.cpp
+	carpet_brush.cpp
+	client_version.cpp
+	common.cpp
+	common_windows.cpp
+	complexitem.cpp
+	container_properties_window.cpp
+	copybuffer.cpp
+	monster_brush.cpp
+	monster.cpp
+	monsters.cpp
+	dat_debug_view.cpp
+	dcbutton.cpp
+	doodad_brush.cpp
+	editor.cpp
+	editor_tabs.cpp
+	eraser_brush.cpp
+	extension.cpp
+	extension_window.cpp
+	find_item_window.cpp
+	filehandle.cpp
+	graphics.cpp
+	ground_brush.cpp
+	gui.cpp
+	house_brush.cpp
+	house.cpp
+	house_exit_brush.cpp
+	light_drawer.cpp
+	iomap.cpp
+	iomap_otbm.cpp
+	iominimap.cpp
+	item_attributes.cpp
+	item.cpp
+	items.cpp
+	live_action.cpp
+	live_client.cpp
+	live_peer.cpp
+	live_server.cpp
+	live_socket.cpp
+	live_tab.cpp
+	main_menubar.cpp
+	main_toolbar.cpp
+	map.cpp
+	map_display.cpp
+	map_drawer.cpp
+	map_region.cpp
+	map_tab.cpp
+	map_window.cpp
+	materials.cpp
+	minimap_window.cpp
+	mkpch.cpp
+	mt_rand.cpp
+	net_connection.cpp
+	npc.cpp
+	npc_brush.cpp
+	npcs.cpp
+	numbertextctrl.cpp
+	old_properties_window.cpp
+	palette_brushlist.cpp
+	palette_common.cpp
+	palette_monster.cpp
+	palette_house.cpp
+	palette_npc.cpp
+	palette_waypoints.cpp
+	palette_zones.cpp
+	palette_window.cpp
+	pngfiles.cpp
+	preferences.cpp
+	process_com.cpp
+	properties_window.cpp
+	raw_brush.cpp
+	replace_items_window.cpp
+	result_window.cpp
+	rme_net.cpp
+	selection.cpp
+	settings.cpp
+	spawn_monster_brush.cpp
+	spawn_monster.cpp
+	spawn_npc.cpp
+	spawn_npc_brush.cpp
+	table_brush.cpp
+	templatemap76-74.cpp
+	templatemap81.cpp
+	templatemap854.cpp
+	templatemapclassic.cpp
+	tile.cpp
+	tileset.cpp
+	tileset_window.cpp
+	town.cpp
+	updater.cpp
+	wall_brush.cpp
+	waypoint_brush.cpp
+	waypoints.cpp
+	welcome_dialog.cpp
+	zone_brush.cpp
+	zones.cpp
 )
 
-set(rme_SRC
-${CMAKE_CURRENT_LIST_DIR}/about_window.cpp
-${CMAKE_CURRENT_LIST_DIR}/action.cpp
-${CMAKE_CURRENT_LIST_DIR}/application.cpp
-${CMAKE_CURRENT_LIST_DIR}/artprovider.cpp
-${CMAKE_CURRENT_LIST_DIR}/basemap.cpp
-${CMAKE_CURRENT_LIST_DIR}/brush.cpp
-${CMAKE_CURRENT_LIST_DIR}/brush_tables.cpp
-${CMAKE_CURRENT_LIST_DIR}/browse_tile_window.cpp
-${CMAKE_CURRENT_LIST_DIR}/positionctrl.cpp
-${CMAKE_CURRENT_LIST_DIR}/carpet_brush.cpp
-${CMAKE_CURRENT_LIST_DIR}/client_version.cpp
-${CMAKE_CURRENT_LIST_DIR}/common.cpp
-${CMAKE_CURRENT_LIST_DIR}/common_windows.cpp
-${CMAKE_CURRENT_LIST_DIR}/complexitem.cpp
-${CMAKE_CURRENT_LIST_DIR}/container_properties_window.cpp
-${CMAKE_CURRENT_LIST_DIR}/copybuffer.cpp
-${CMAKE_CURRENT_LIST_DIR}/creature_brush.cpp
-${CMAKE_CURRENT_LIST_DIR}/creature.cpp
-${CMAKE_CURRENT_LIST_DIR}/creatures.cpp
-${CMAKE_CURRENT_LIST_DIR}/dat_debug_view.cpp
-${CMAKE_CURRENT_LIST_DIR}/dcbutton.cpp
-${CMAKE_CURRENT_LIST_DIR}/doodad_brush.cpp
-${CMAKE_CURRENT_LIST_DIR}/editor.cpp
-${CMAKE_CURRENT_LIST_DIR}/editor_tabs.cpp
-${CMAKE_CURRENT_LIST_DIR}/eraser_brush.cpp
-${CMAKE_CURRENT_LIST_DIR}/extension.cpp
-${CMAKE_CURRENT_LIST_DIR}/extension_window.cpp
-${CMAKE_CURRENT_LIST_DIR}/find_item_window.cpp
-${CMAKE_CURRENT_LIST_DIR}/filehandle.cpp
-${CMAKE_CURRENT_LIST_DIR}/graphics.cpp
-${CMAKE_CURRENT_LIST_DIR}/ground_brush.cpp
-${CMAKE_CURRENT_LIST_DIR}/gui.cpp
-${CMAKE_CURRENT_LIST_DIR}/house_brush.cpp
-${CMAKE_CURRENT_LIST_DIR}/house.cpp
-${CMAKE_CURRENT_LIST_DIR}/house_exit_brush.cpp
-${CMAKE_CURRENT_LIST_DIR}/iomap.cpp
-${CMAKE_CURRENT_LIST_DIR}/iomap_otbm.cpp
-#${CMAKE_CURRENT_LIST_DIR}/iomap_otmm.cpp
-${CMAKE_CURRENT_LIST_DIR}/item_attributes.cpp
-${CMAKE_CURRENT_LIST_DIR}/item.cpp
-${CMAKE_CURRENT_LIST_DIR}/items.cpp
-${CMAKE_CURRENT_LIST_DIR}/light_drawer.cpp
-${CMAKE_CURRENT_LIST_DIR}/live_action.cpp
-${CMAKE_CURRENT_LIST_DIR}/live_client.cpp
-${CMAKE_CURRENT_LIST_DIR}/live_peer.cpp
-${CMAKE_CURRENT_LIST_DIR}/live_server.cpp
-${CMAKE_CURRENT_LIST_DIR}/live_socket.cpp
-${CMAKE_CURRENT_LIST_DIR}/live_tab.cpp
-${CMAKE_CURRENT_LIST_DIR}/main_menubar.cpp
-${CMAKE_CURRENT_LIST_DIR}/main_toolbar.cpp
-${CMAKE_CURRENT_LIST_DIR}/map.cpp
-${CMAKE_CURRENT_LIST_DIR}/map_display.cpp
-${CMAKE_CURRENT_LIST_DIR}/map_drawer.cpp
-${CMAKE_CURRENT_LIST_DIR}/map_region.cpp
-${CMAKE_CURRENT_LIST_DIR}/map_tab.cpp
-${CMAKE_CURRENT_LIST_DIR}/map_window.cpp
-${CMAKE_CURRENT_LIST_DIR}/materials.cpp
-${CMAKE_CURRENT_LIST_DIR}/minimap_window.cpp
-${CMAKE_CURRENT_LIST_DIR}/mkpch.cpp
-${CMAKE_CURRENT_LIST_DIR}/mt_rand.cpp
-${CMAKE_CURRENT_LIST_DIR}/net_connection.cpp
-${CMAKE_CURRENT_LIST_DIR}/numbertextctrl.cpp
-${CMAKE_CURRENT_LIST_DIR}/old_properties_window.cpp
-${CMAKE_CURRENT_LIST_DIR}/palette_brushlist.cpp
-${CMAKE_CURRENT_LIST_DIR}/palette_common.cpp
-${CMAKE_CURRENT_LIST_DIR}/palette_creature.cpp
-${CMAKE_CURRENT_LIST_DIR}/palette_house.cpp
-${CMAKE_CURRENT_LIST_DIR}/palette_waypoints.cpp
-${CMAKE_CURRENT_LIST_DIR}/palette_window.cpp
-${CMAKE_CURRENT_LIST_DIR}/pngfiles.cpp
-${CMAKE_CURRENT_LIST_DIR}/preferences.cpp
-${CMAKE_CURRENT_LIST_DIR}/process_com.cpp
-${CMAKE_CURRENT_LIST_DIR}/properties_window.cpp
-${CMAKE_CURRENT_LIST_DIR}/raw_brush.cpp
-${CMAKE_CURRENT_LIST_DIR}/replace_items_window.cpp
-${CMAKE_CURRENT_LIST_DIR}/result_window.cpp
-${CMAKE_CURRENT_LIST_DIR}/rme_net.cpp
-${CMAKE_CURRENT_LIST_DIR}/selection.cpp
-${CMAKE_CURRENT_LIST_DIR}/settings.cpp
-${CMAKE_CURRENT_LIST_DIR}/spawn_brush.cpp
-${CMAKE_CURRENT_LIST_DIR}/spawn.cpp
-${CMAKE_CURRENT_LIST_DIR}/table_brush.cpp
-${CMAKE_CURRENT_LIST_DIR}/templatemap76-74.cpp
-${CMAKE_CURRENT_LIST_DIR}/templatemap81.cpp
-${CMAKE_CURRENT_LIST_DIR}/templatemap854.cpp
-${CMAKE_CURRENT_LIST_DIR}/templatemapclassic.cpp
-${CMAKE_CURRENT_LIST_DIR}/tile.cpp
-${CMAKE_CURRENT_LIST_DIR}/tileset.cpp
-${CMAKE_CURRENT_LIST_DIR}/town.cpp
-${CMAKE_CURRENT_LIST_DIR}/updater.cpp
-${CMAKE_CURRENT_LIST_DIR}/wall_brush.cpp
-${CMAKE_CURRENT_LIST_DIR}/waypoint_brush.cpp
-${CMAKE_CURRENT_LIST_DIR}/waypoints.cpp
-${CMAKE_CURRENT_LIST_DIR}/welcome_dialog.cpp
-${CMAKE_CURRENT_LIST_DIR}/json/json_spirit_reader.cpp
-${CMAKE_CURRENT_LIST_DIR}/json/json_spirit_value.cpp
-${CMAKE_CURRENT_LIST_DIR}/json/json_spirit_writer.cpp
+target_include_directories(${PROJECT_NAME}
+	PRIVATE
+	${CMAKE_SOURCE_DIR}/source
+	${OPENGL_INCLUDE_DIR}
+	${GLUT_INCLUDE_DIRS}
+	${ZLIB_INCLUDE_DIR}
 )
+
+target_link_libraries(${PROJECT_NAME}
+	PRIVATE
+	${OPENGL_LIBRARIES}
+	${GLUT_LIBRARIES}
+	${ZLIB_LIBRARIES}
+	fmt::fmt
+	asio::asio
+	nlohmann_json::nlohmann_json
+	pugixml::pugixml
+	wx::base wx::core wx::net wx::gl wx::html wx::aui wx::adv
+)
+
+## Link compilation files to build/bin folder, else link to the main dir
+if (TOGGLE_BIN_FOLDER)
+	set_target_properties(${PROJECT_NAME}
+			PROPERTIES
+			RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+	)
+else()
+	set_target_properties(${PROJECT_NAME}
+			PROPERTIES
+			RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/"
+	)
+endif()
