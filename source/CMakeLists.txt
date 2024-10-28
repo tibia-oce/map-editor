@@ -215,8 +215,7 @@ target_link_libraries(${PROJECT_NAME}
     asio::asio
     nlohmann_json::nlohmann_json
     pugixml::pugixml
-    wxWidgets::html wxWidgets::aui wxWidgets::gl wxWidgets::adv
-    wxWidgets::core wxWidgets::net wxWidgets::base
+    wxWidgets::wxwidgets
     Boost::spirit Boost::utility
 )
 
