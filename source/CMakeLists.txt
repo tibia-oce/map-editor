@@ -53,6 +53,8 @@ else()
 	log_option_disabled("DEBUG LOG")
 endif(DEBUG_LOG)
 
+add_definitions(-DBOOST_BIND_GLOBAL_PLACEHOLDERS)
+
 if (MSVC)
 	add_executable(${PROJECT_NAME} "" ../cmake/remeres.rc)
 
