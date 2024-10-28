@@ -5,13 +5,12 @@
 project(remeres)
 
 find_package(asio CONFIG REQUIRED)
-find_package(wxWidgets CONFIG REQUIRED)
 find_package(fmt CONFIG REQUIRED)
 find_package(GLUT REQUIRED)
 find_package(nlohmann_json CONFIG REQUIRED)
 find_package(OpenGL REQUIRED)
 find_package(Threads REQUIRED)
-find_package(wxWidgets COMPONENTS html aui gl adv core net base CONFIG REQUIRED)
+find_package(wxWidgets CONFIG REQUIRED)
 find_package(ZLIB REQUIRED)
 find_package(pugixml CONFIG REQUIRED)
 find_package(Boost REQUIRED COMPONENTS spirit utility)
@@ -216,7 +215,8 @@ target_link_libraries(${PROJECT_NAME}
     asio::asio
     nlohmann_json::nlohmann_json
     pugixml::pugixml
-    wx::base wx::core wx::net wx::gl wx::html wx::aui wx::adv
+    wxWidgets::html wxWidgets::aui wxWidgets::gl wxWidgets::adv
+    wxWidgets::core wxWidgets::net wxWidgets::base
     Boost::spirit Boost::utility
 )
 
