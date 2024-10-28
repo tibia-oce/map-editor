@@ -7,6 +7,29 @@ It is a fork of a [Map Editor](https://github.com/hampusborgos/rme) created by [
 
 ![rme](/docs/images/rme.png)
 
+
+
+
+## Usage
+
+### Cloning the Repository
+
+When cloning this repository, Git LFS will automatically download the large files:
+
+```bash
+git clone https://github.com/tibia-oce/map-editor.git
+```
+
+### Download the latest assets
+The up to date assets are found in: https://github.com/tibia-oce/assets
+
+Automate the updating process
+```bash
+make fetch
+```
+
+
+
 Compiling
 =========
 Required libraries:
@@ -24,3 +47,11 @@ Required libraries:
 [Compile on Arch Linux](https://github.com/hjnilsson/rme/wiki/Compiling-on-Arch-Linux)
 
 [Compile on macOS](https://github.com/hjnilsson/rme/wiki/Compiling-on-macOS)
+
+
+
+
+
+
+
+

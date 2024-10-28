@@ -100,9 +100,6 @@ target_sources(${PROJECT_NAME}
 	PRIVATE
 	about_window.cpp
 	action.cpp
-	actions_history_window.cpp
-	add_item_window.cpp
-	add_tileset_window.cpp
 	application.cpp
 	artprovider.cpp
 	basemap.cpp
@@ -117,9 +114,9 @@ target_sources(${PROJECT_NAME}
 	complexitem.cpp
 	container_properties_window.cpp
 	copybuffer.cpp
-	monster_brush.cpp
-	monster.cpp
-	monsters.cpp
+	creature_brush.cpp
+	creature.cpp
+	creatures.cpp
 	dat_debug_view.cpp
 	dcbutton.cpp
 	doodad_brush.cpp
@@ -136,13 +133,13 @@ target_sources(${PROJECT_NAME}
 	house_brush.cpp
 	house.cpp
 	house_exit_brush.cpp
-	light_drawer.cpp
 	iomap.cpp
 	iomap_otbm.cpp
-	iominimap.cpp
+	#iomap_otmm.cpp
 	item_attributes.cpp
 	item.cpp
 	items.cpp
+	light_drawer.cpp
 	live_action.cpp
 	live_client.cpp
 	live_peer.cpp
@@ -162,18 +159,13 @@ target_sources(${PROJECT_NAME}
 	mkpch.cpp
 	mt_rand.cpp
 	net_connection.cpp
-	npc.cpp
-	npc_brush.cpp
-	npcs.cpp
 	numbertextctrl.cpp
 	old_properties_window.cpp
 	palette_brushlist.cpp
 	palette_common.cpp
-	palette_monster.cpp
+	palette_creature.cpp
 	palette_house.cpp
-	palette_npc.cpp
 	palette_waypoints.cpp
-	palette_zones.cpp
 	palette_window.cpp
 	pngfiles.cpp
 	preferences.cpp
@@ -185,10 +177,8 @@ target_sources(${PROJECT_NAME}
 	rme_net.cpp
 	selection.cpp
 	settings.cpp
-	spawn_monster_brush.cpp
-	spawn_monster.cpp
-	spawn_npc.cpp
-	spawn_npc_brush.cpp
+	spawn_brush.cpp
+	spawn.cpp
 	table_brush.cpp
 	templatemap76-74.cpp
 	templatemap81.cpp
@@ -196,15 +186,15 @@ target_sources(${PROJECT_NAME}
 	templatemapclassic.cpp
 	tile.cpp
 	tileset.cpp
-	tileset_window.cpp
 	town.cpp
 	updater.cpp
 	wall_brush.cpp
 	waypoint_brush.cpp
 	waypoints.cpp
 	welcome_dialog.cpp
-	zone_brush.cpp
-	zones.cpp
+	json/json_spirit_reader.cpp
+	json/json_spirit_value.cpp
+	json/json_spirit_writer.cpp
 )
 
 target_include_directories(${PROJECT_NAME}
