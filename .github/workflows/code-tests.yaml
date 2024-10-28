@@ -1,0 +1,27 @@
+name: Code Testing
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - master
+      - develop
+    paths:
+      - "source/**"
+  push:
+    branches:
+      - master
+      - develop
+    paths:
+      - "source/**"
+
+jobs:
+  cpp:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # todo: see example https://github.com/opentibiabr/canary/tree/main/tests
+      - name: CPP Tests
+        run: true
