@@ -13,7 +13,7 @@ find_package(Threads REQUIRED)
 find_package(wxWidgets CONFIG REQUIRED)
 find_package(ZLIB REQUIRED)
 find_package(pugixml CONFIG REQUIRED)
-find_package(Boost REQUIRED COMPONENTS spirit utility)
+find_package(Boost REQUIRED COMPONENTS spirit utility asio)
 
 option(TOGGLE_BIN_FOLDER "Use build/bin folder for generate compilation files" OFF)
 option(OPTIONS_ENABLE_OPENMP "Enable Open Multi-Processing support." ON)
@@ -216,7 +216,7 @@ target_link_libraries(${PROJECT_NAME}
     nlohmann_json::nlohmann_json
     pugixml::pugixml
     wx::core wx::base
-    Boost::spirit Boost::utility
+    Boost::spirit Boost::utility Boost::asio
 )
 
 ## Link compilation files to build/bin folder, else link to the main dir
