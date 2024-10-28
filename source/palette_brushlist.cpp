@@ -307,15 +307,15 @@ void BrushPanel::SetListType(BrushListType ltype) {
 }
 
 void BrushPanel::SetListType(wxString ltype) {
-	if (ltype == "small icons") {
-		SetListType(BRUSHLIST_SMALL_ICONS);
-	} else if (ltype == "large icons") {
-		SetListType(BRUSHLIST_LARGE_ICONS);
-	} else if (ltype == "listbox") {
-		SetListType(BRUSHLIST_LISTBOX);
-	} else if (ltype == "textlistbox") {
-		SetListType(BRUSHLIST_TEXT_LISTBOX);
-	}
+    if (ltype == wxT("small icons")) {
+        SetListType(BRUSHLIST_SMALL_ICONS);
+    } else if (ltype == wxT("large icons")) {
+        SetListType(BRUSHLIST_LARGE_ICONS);
+    } else if (ltype == wxT("listbox")) {
+        SetListType(BRUSHLIST_LISTBOX);
+    } else if (ltype == wxT("textlistbox")) {
+        SetListType(BRUSHLIST_TEXT_LISTBOX);
+    }
 }
 
 void BrushPanel::InvalidateContents() {
