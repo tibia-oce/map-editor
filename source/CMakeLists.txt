@@ -210,7 +210,7 @@ target_link_libraries(${PROJECT_NAME}
     asio::asio
     nlohmann_json::nlohmann_json
     pugixml::pugixml
-    wx::core wx::base wx::aui wx::gl wx::html
+    wx::core wx::base wx::aui wx::gl wx::html wx::net
     Boost::spirit Boost::utility Boost::asio
     LibArchive::LibArchive
 )
