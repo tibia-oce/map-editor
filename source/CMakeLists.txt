@@ -10,7 +10,8 @@ find_package(GLUT REQUIRED)
 find_package(nlohmann_json CONFIG REQUIRED)
 find_package(OpenGL REQUIRED)
 find_package(Threads REQUIRED)
-find_package(wxWidgets CONFIG REQUIRED)
+# find_package(wxWidgets CONFIG REQUIRED)
+find_package(wxWidgets COMPONENTS html aui gl adv core net base CONFIG REQUIRED)
 find_package(ZLIB REQUIRED)
 find_package(pugixml CONFIG REQUIRED)
 find_package(Boost REQUIRED COMPONENTS spirit utility asio)
@@ -45,8 +46,6 @@ if(DEBUG_LOG)
 else()
 	log_option_disabled("DEBUG LOG")
 endif(DEBUG_LOG)
-
-add_definitions(-DBOOST_BIND_GLOBAL_PLACEHOLDERS)
 
 if (MSVC)
 	add_executable(${PROJECT_NAME} "" ../cmake/remeres.rc)
@@ -194,7 +193,6 @@ target_sources(${PROJECT_NAME}
 	json/json_spirit_reader.cpp
 	json/json_spirit_value.cpp
 	json/json_spirit_writer.cpp
-	main.cpp
 )
 
 target_include_directories(${PROJECT_NAME}
