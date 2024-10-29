@@ -1,5 +1,4 @@
-Map Editor
-=============
+# Map Editor
 
 This is a map editor for game servers that derivied from [OpenTibia](https://github.com/tibia-oce/server) server project.
 
