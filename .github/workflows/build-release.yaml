@@ -37,6 +37,8 @@ env:
 
 jobs:
   build:
+    outputs:
+      artifact_name: ${{ matrix.buildtype }}-${{ github.sha }}
     if: ${{ github.event_name == 'push' || !github.event.pull_request.draft }}
     name: ${{ matrix.os }}-${{ matrix.buildtype }}
     runs-on: ${{ matrix.os }}
@@ -99,6 +101,10 @@ jobs:
           path: |
             ${{ github.workspace }}/*.exe
 
+      - name: Set artifact name output
+        id: set_artifact_name_output
+        run: echo "artifact_name=${{ matrix.buildtype }}-${{ github.sha }}" >> $GITHUB_ENV
+
   release:
     needs: [build]
     runs-on: ubuntu-latest
@@ -115,11 +121,11 @@ jobs:
       - name: Download build artifact
         uses: actions/download-artifact@v3
         with:
-          name: windows-release-${{ github.sha }}
+          name: ${{ needs.build.outputs.artifact_name }}
 
       - name: Unzip build artifact
         run: |
-          unzip windows-release-${{ github.sha }}.zip -d .
+          unzip "${{ needs.build.outputs.artifact_name }}.zip" -d .
         shell: bash
 
       - name: Create release zip
