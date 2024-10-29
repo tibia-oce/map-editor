@@ -1,7 +1,8 @@
 {
   "branches": [
     { "name": "master", "prerelease": false },
-    { "name": "develop", "prerelease": "rc" }
+    { "name": "develop", "prerelease": "rc" },
+    { "name": "feat/compiler", "prerelease": "rc" }
   ],
   "tagFormat": "v${version}",
   "plugins": [
