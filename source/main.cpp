@@ -1,7 +1,7 @@
-#include "main.h"
+#include "application.h"
 
 wxIMPLEMENT_APP(Application);
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv) {
     return wxEntry(argc, argv);
 }
