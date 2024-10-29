@@ -115,11 +115,11 @@ jobs:
       - name: Download build artifact
         uses: actions/download-artifact@v3
         with:
-          name: ${{ matrix.buildtype }}-${{ github.sha }}
+          name: windows-release-${{ github.sha }}
 
       - name: Unzip build artifact
         run: |
-          unzip ${{ matrix.buildtype }}-${{ github.sha }}.zip -d .
+          unzip windows-release-${{ github.sha }}.zip -d .
         shell: bash
 
       - name: Create release zip
