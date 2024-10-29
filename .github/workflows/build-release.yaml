@@ -191,7 +191,7 @@ jobs:
           latest_tag=$(gh release list --limit 1 --json tagName,isPrerelease --jq '.[] | select(.isPrerelease) | .tagName')
           if [[ $latest_tag == *"-rc."* ]]; then
             new_tag=${latest_tag%-rc.*}-rc
-            new_name="Release ${new_tag}"
+            new_name="${new_tag}"
             gh release edit "$latest_tag" --tag "$new_tag" --title "$new_name"
             git tag $new_tag $latest_tag  # Create the new tag pointing to the same commit
             git tag -d $latest_tag  # Delete the old tag locally
