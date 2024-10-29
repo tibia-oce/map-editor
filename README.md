@@ -23,4 +23,4 @@ Follow the instructions in this [Project](https://github.com/tibia-oce/assets?ta
 
 ## Committing changes
 
-If you follow the above [instructions](https://github.com/tibia-oce/assets?tab=readme-ov-file#prerequisites), you're changes were tracked against the published assets. You can commit this to a 
+If you follow the above [instructions](https://github.com/tibia-oce/assets?tab=readme-ov-file#prerequisites), you're changes were tracked against the published assets.
