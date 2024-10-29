@@ -14,20 +14,13 @@ find_package(wxWidgets CONFIG REQUIRED)
 find_package(ZLIB REQUIRED)
 find_package(pugixml CONFIG REQUIRED)
 find_package(Boost REQUIRED COMPONENTS spirit utility asio)
+find_package(LibArchive REQUIRED)
 
 option(TOGGLE_BIN_FOLDER "Use build/bin folder for generate compilation files" OFF)
 option(OPTIONS_ENABLE_OPENMP "Enable Open Multi-Processing support." ON)
 option(DEBUG_LOG "Enable Debug Log" OFF)
 option(BUILD_STATIC_LIBRARY "Build using static libraries" ON)
 option(SPEED_UP_BUILD_UNITY "Compile using build unity for speed up build" ON)
-
-# LibArchive disabled in compilation level by default, see "#define OTGZ_SUPPORT" in the "definitions.h" file
-#if(APPLE)
-#	set(CMAKE_PREFIX_PATH /usr/local/opt/libarchive)
-#endif()
-# If you need use, enable this:
-#find_package(LibArchive REQUIRED)
-#${LibArchive_INCLUDE_DIRS} ${LibArchive_LIBRARIES}
 
 # Build static libs
 if(BUILD_STATIC_LIBRARY)
@@ -219,6 +212,7 @@ target_link_libraries(${PROJECT_NAME}
     pugixml::pugixml
     wx::core wx::base wx::aui wx::gl wx::html
     Boost::spirit Boost::utility Boost::asio
+    LibArchive::LibArchive
 )
 
 ## Link compilation files to build/bin folder, else link to the main dir
