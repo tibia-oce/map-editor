@@ -121,7 +121,7 @@ jobs:
       
       - name: Create release zip
         run: |
-          zip -r map-editor.zip ./artifacts/*.exe data brushes extensions icons tools LICENSE.rtf
+          zip -r map-editor.zip ./artifacts/remeres.exe data brushes extensions icons tools LICENSE.rtf
         shell: bash
   
       - name: Upload release zip as artifact
@@ -174,7 +174,9 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEBUG: semantic-release:*
-        run: npx semantic-release --ci
+        run: |
+          ls -al
+          npx semantic-release --ci
 
       # https://semantic-release.gitbook.io/semantic-release/usage/workflow-configuration#pre-release-branches
       # Semantic-release appends a numerical suffix to all pre-releases by default (e.g., `v0.0.1-rc.1`).
