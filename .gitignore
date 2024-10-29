@@ -12,6 +12,7 @@ CMakeLists.txt.user*
 rme
 rme.cfg
 data/user
+data/assets/
 
 # exe and dll
 *.dll
@@ -60,3 +61,4 @@ cmake-build-debug/
 # Vcpkg
 vcpkg_installed/
 vcpkg/
+data/assets/items/items.otb
