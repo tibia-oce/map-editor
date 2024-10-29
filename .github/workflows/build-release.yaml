@@ -1,3 +1,5 @@
+# if: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop' }}
+
 name: Build & Release
 
 on:
@@ -6,7 +8,6 @@ on:
     branches:
       - master
       - develop
-      - feat/compiler
     paths:
       - "data/**"
       - 'source/**'
@@ -20,7 +21,6 @@ on:
     branches:
       - master
       - develop
-      - feat/compiler
     paths:
       - "data/**"
       - 'source/**'
@@ -100,7 +100,6 @@ jobs:
             ${{ github.workspace }}/*.exe
 
   release:
-    if: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop' }}
     runs-on: ubuntu-latest
     outputs:
       release-version: ${{ steps.extract_version.outputs.RELEASE_VERSION }}
@@ -111,6 +110,17 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Create release zip
+        run: |
+          zip -r release.zip data brushes extensions icons tools LICENSE.rtf
+        shell: bash
+  
+      - name: Upload release zip as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: release
+          path: release.zip
 
       - name: Use Node.js 20.x
         uses: actions/setup-node@v3

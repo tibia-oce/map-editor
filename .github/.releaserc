@@ -6,7 +6,14 @@
   "tagFormat": "v${version}",
   "plugins": [
     "@semantic-release/commit-analyzer",
-    "@semantic-release/github",
+    [
+      "@semantic-release/github",
+      {
+        "assets": [
+          { "path": "release.zip", "label": "Release" }
+        ]
+      }
+    ],
     [
       "@semantic-release/release-notes-generator",
       {
