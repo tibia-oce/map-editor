@@ -42,9 +42,7 @@ EVT_BUTTON(wxID_OK, OldPropertiesWindow::OnClickOK)
 EVT_BUTTON(wxID_CANCEL, OldPropertiesWindow::OnClickCancel)
 END_EVENT_TABLE()
 
-namespace {
-    constexpr int OUTFIT_COLOR_MAX = 133;
-}
+static constexpr int OUTFIT_COLOR_MAX = 133;
 
 OldPropertiesWindow::OldPropertiesWindow(wxWindow* win_parent, const Map* map, const Tile* tile_parent, Item* item, wxPoint pos) :
 	ObjectPropertiesWindowBase(win_parent, "Item Properties", map, tile_parent, item, pos),
