@@ -121,7 +121,7 @@ jobs:
       
       - name: Create release zip
         run: |
-          zip -r map-editor.zip ./artifacts/remeres.exe data brushes extensions icons tools LICENSE.rtf
+          zip -r map-editor.zip remeres.exe data brushes extensions icons tools LICENSE.rtf
         shell: bash
   
       - name: Upload release zip as artifact
