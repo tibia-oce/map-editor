@@ -12,13 +12,9 @@ It is a fork of a [Map Editor](https://github.com/hampusborgos/rme) created by [
 
 Download the latest release [here](https://github.com/tibia-oce/map-editor/releases/latest).
 
-To get started with making modifications contributing to the Mythbound world map, you'll need a copy of the latest:
-- items
-- creatures
-- world map
-- houses & spawns
+The assets used in the map editor are shared between a number of other services. They are tracked via [Git](https://git-scm.com/) to make collaboration and version tracking easier.
 
-Follow the instructions in this [Project](https://github.com/tibia-oce/assets?tab=readme-ov-file#prerequisites).
+To get started contributing to the Mythbound world map and assets, you'll need to follow these [instructions](https://github.com/tibia-oce/assets?tab=readme-ov-file#prerequisites).
 
 
 ## Committing changes
