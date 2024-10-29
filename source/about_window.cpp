@@ -16,9 +16,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "main.h"
-
 #include "gui.h"
-
 #include "about_window.h"
 #include <fstream>
 #include <typeinfo>
