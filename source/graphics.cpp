@@ -489,8 +489,8 @@ bool GraphicManager::loadSpriteMetadata(const FileName& datafile, wxString& erro
 	dat_format = client_version->getDatFormatForSignature(datSignature);
 
 	if (!otfi_found) {
-		is_extended = dat_format >= DAT_FORMAT_96;
-		has_frame_durations = dat_format >= DAT_FORMAT_1050;
+		is_extended = dat_format >= DAT_FORMAT_1057;
+		has_frame_durations = dat_format >= DAT_FORMAT_1057;
 		has_frame_groups = dat_format >= DAT_FORMAT_1057;
 	}
 
@@ -533,11 +533,7 @@ bool GraphicManager::loadSpriteMetadata(const FileName& datafile, wxString& erro
 			file.getU8(sType->layers); // Number of blendframes (some sprites consist of several merged sprites)
 			file.getU8(sType->pattern_x);
 			file.getU8(sType->pattern_y);
-			if (dat_format <= DAT_FORMAT_74) {
-				sType->pattern_z = 1;
-			} else {
-				file.getU8(sType->pattern_z);
-			}
+			file.getU8(sType->pattern_z);
 			file.getU8(sType->frames); // Length of animation
 
 			if (sType->frames > 1) {
@@ -601,74 +597,11 @@ bool GraphicManager::loadSpriteMetadataFlags(FileReadHandle& file, GameSprite* s
 		if (flag == DatFlagLast) {
 			return true;
 		}
-		if (dat_format >= DAT_FORMAT_1010) {
-			/* In 10.10+ all attributes from 16 and up were
-			 * incremented by 1 to make space for 16 as
-			 * "No Movement Animation" flag.
-			 */
+		if (dat_format >= DAT_FORMAT_1057) {
 			if (flag == 16) {
 				flag = DatFlagNoMoveAnimation;
 			} else if (flag > 16) {
 				flag -= 1;
-			}
-		} else if (dat_format >= DAT_FORMAT_86) {
-			/* Default attribute values follow
-			 * the format of 8.6-9.86.
-			 * Therefore no changes here.
-			 */
-		} else if (dat_format >= DAT_FORMAT_78) {
-			/* In 7.80-8.54 all attributes from 8 and higher were
-			 * incremented by 1 to make space for 8 as
-			 * "Item Charges" flag.
-			 */
-			if (flag == 8) {
-				flag = DatFlagChargeable;
-			} else if (flag > 8) {
-				flag -= 1;
-			}
-		} else if (dat_format >= DAT_FORMAT_755) {
-			/* In 7.55-7.72 attributes 23 is "Floor Change". */
-			if (flag == 23) {
-				flag = DatFlagFloorChange;
-			}
-		} else if (dat_format >= DAT_FORMAT_74) {
-			/* In 7.4-7.5 attribute "Ground Border" did not exist
-			 * attributes 1-15 have to be adjusted.
-			 * Several other changes in the format.
-			 */
-			if (flag > 0 && flag <= 15) {
-				flag += 1;
-			} else if (flag == 16) {
-				flag = DatFlagLight;
-			} else if (flag == 17) {
-				flag = DatFlagFloorChange;
-			} else if (flag == 18) {
-				flag = DatFlagFullGround;
-			} else if (flag == 19) {
-				flag = DatFlagElevation;
-			} else if (flag == 20) {
-				flag = DatFlagDisplacement;
-			} else if (flag == 22) {
-				flag = DatFlagMinimapColor;
-			} else if (flag == 23) {
-				flag = DatFlagRotateable;
-			} else if (flag == 24) {
-				flag = DatFlagLyingCorpse;
-			} else if (flag == 25) {
-				flag = DatFlagHangable;
-			} else if (flag == 26) {
-				flag = DatFlagHookSouth;
-			} else if (flag == 27) {
-				flag = DatFlagHookEast;
-			} else if (flag == 28) {
-				flag = DatFlagAnimateAlways;
-			}
-
-			/* "Multi Use" and "Force Use" are swapped */
-			if (flag == DatFlagMultiUse) {
-				flag = DatFlagForceUse;
-			} else if (flag == DatFlagForceUse) {
-				flag = DatFlagMultiUse;
 			}
 		}
 
@@ -726,7 +659,7 @@ bool GraphicManager::loadSpriteMetadataFlags(FileReadHandle& file, GameSprite* s
 			}
 
 			case DatFlagDisplacement: {
-				if (dat_format >= DAT_FORMAT_755) {
+				if (dat_format >= DAT_FORMAT_1057) {
 					uint16_t offset_x;
 					uint16_t offset_y;
 					file.getU16(offset_x);
@@ -734,9 +667,6 @@ bool GraphicManager::loadSpriteMetadataFlags(FileReadHandle& file, GameSprite* s
 
 					sType->drawoffset_x = offset_x;
 					sType->drawoffset_y = offset_y;
-				} else {
-					sType->drawoffset_x = 8;
-					sType->drawoffset_y = 8;
 				}
 				break;
 			}
