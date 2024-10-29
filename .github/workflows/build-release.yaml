@@ -38,7 +38,7 @@ env:
 jobs:
   build:
     outputs:
-      artifact_name: ${{ matrix.buildtype }}-${{ github.sha }}
+      artifact_name: build-artifact
     if: ${{ github.event_name == 'push' || !github.event.pull_request.draft }}
     name: ${{ matrix.os }}-${{ matrix.buildtype }}
     runs-on: ${{ matrix.os }}
@@ -97,13 +97,13 @@ jobs:
       - name: Create and Upload Artifact
         uses: actions/upload-artifact@main
         with:
-          name: ${{ matrix.buildtype }}-${{ github.sha }}
+          name: build-artifact
           path: |
             ${{ github.workspace }}/*.exe
 
       - name: Set artifact name output
         id: set_artifact_name_output
-        run: echo "artifact_name=${{ matrix.buildtype }}-${{ github.sha }}" >> $GITHUB_ENV
+        run: echo "artifact_name=build-artifact" >> $GITHUB_ENV
 
   release:
     needs: [build]
@@ -121,11 +121,11 @@ jobs:
       - name: Download build artifact
         uses: actions/download-artifact@v3
         with:
-          name: ${{ needs.build.outputs.artifact_name }}
+          name: build-artifact
+          path: ./artifact
 
       - name: Unzip build artifact
-        run: |
-          unzip "${{ needs.build.outputs.artifact_name }}.zip" -d .
+        run: unzip "./artifact/build-artifact.zip" -d ./extracted-artifact
         shell: bash
 
       - name: Create release zip
