@@ -112,16 +112,26 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Download build artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ matrix.buildtype }}-${{ github.sha }}
+
+      - name: Unzip build artifact
+        run: |
+          unzip ${{ matrix.buildtype }}-${{ github.sha }}.zip -d .
+        shell: bash
+
       - name: Create release zip
         run: |
-          zip -r release.zip data brushes extensions icons tools LICENSE.rtf
+          zip -r map-editor.zip ./*.exe data brushes extensions icons tools LICENSE.rtf
         shell: bash
   
       - name: Upload release zip as artifact
         uses: actions/upload-artifact@v3
         with:
-          name: release
-          path: release.zip
+          name: map-editor
+          path: map-editor.zip
 
       - name: Use Node.js 20.x
         uses: actions/setup-node@v3
