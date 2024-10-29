@@ -367,7 +367,7 @@ bool GUI::LoadDataFiles(wxString& error, wxArrayString& warnings) {
 	}
 
 	g_gui.SetLoadDone(45, "Loading creatures.xml ...");
-	if (!g_creatures.loadFromXML(wxString("data/assets/creatures/creatures.xml"), true, error, warnings)) {
+	if (!g_creatures.loadFromXML(wxString("data/creatures/creatures.xml"), true, error, warnings)) {
 		warnings.push_back("Couldn't load creatures.xml: " + error);
 	}
 
