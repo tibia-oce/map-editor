@@ -121,19 +121,12 @@ jobs:
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          name: build-artifact
           path: artifacts
-
-      - name: Display structure of downloaded files
-        run: ls -R artifacts
-
-      - name: Unzip build artifact
-        run: unzip "./artifact/build-artifact.zip" -d ./extracted-artifact
-        shell: bash
-
+      
       - name: Create release zip
         run: |
-          zip -r map-editor.zip ./*.exe data brushes extensions icons tools LICENSE.rtf
+          zip -r map-editor.zip ./artifacts/build-artifact/*.exe data brushes extensions icons tools LICENSE.rtf
         shell: bash
   
       - name: Upload release zip as artifact
