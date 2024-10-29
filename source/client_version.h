@@ -120,13 +120,6 @@ struct OtbVersion {
 // Formats for the metadata file
 enum DatFormat {
 	DAT_FORMAT_UNKNOWN,
-	DAT_FORMAT_74,
-	DAT_FORMAT_755,
-	DAT_FORMAT_78,
-	DAT_FORMAT_86,
-	DAT_FORMAT_96,
-	DAT_FORMAT_1010,
-	DAT_FORMAT_1050,
 	DAT_FORMAT_1057
 };
 

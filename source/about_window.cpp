@@ -16,9 +16,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "main.h"
-
 #include "gui.h"
-
 #include "about_window.h"
 #include <fstream>
 #include <typeinfo>
@@ -175,10 +173,9 @@ AboutWindow::AboutWindow(wxWindow* parent) :
 	game_panel(nullptr) {
 	wxString about;
 
-	about << "OTAcademy Map Editor\n";
-	about << "(based on Remere's Map Editor)\n\n";
+	about << "Mythbound Map Editor\n";
+	about << "(based on OTAcademy's Map Editor)\n\n";
 	about << "This program is a map editor for game servers\nthat derivied from OpenTibia project.\n\n";
-	about << "Brought to you by OTAcademy\n\n";
 
 	about << "Version " << __W_RME_VERSION__ << " for ";
 	about <<

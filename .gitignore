@@ -2,7 +2,6 @@
 CMakeCache.txt
 CMakeFiles
 cmake_install.cmake
-Makefile
 build/
 build.*/
 build-debug
@@ -13,6 +12,7 @@ CMakeLists.txt.user*
 rme
 rme.cfg
 data/user
+data/assets/
 
 # exe and dll
 *.dll
@@ -57,3 +57,8 @@ cmake-build-debug/
 
 # Notepad++
 *.bak
+
+# Vcpkg
+vcpkg_installed/
+vcpkg/
+data/assets/items/items.otb

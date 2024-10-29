@@ -354,7 +354,7 @@ bool GUI::LoadDataFiles(wxString& error, wxArrayString& warnings) {
 	}
 
 	g_gui.SetLoadDone(20, "Loading items.otb file...");
-	if (!g_items.loadFromOtb(wxString(data_path.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR) + "items.otb"), error, warnings)) {
+	if (!g_items.loadFromOtb(wxString("data/assets/items/items.otb"), error, warnings)) {
 		error = "Couldn't load items.otb: " + error;
 		g_gui.DestroyLoadBar();
 		UnloadVersion();
@@ -362,12 +362,12 @@ bool GUI::LoadDataFiles(wxString& error, wxArrayString& warnings) {
 	}
 
 	g_gui.SetLoadDone(30, "Loading items.xml ...");
-	if (!g_items.loadFromGameXml(wxString(data_path.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR) + "items.xml"), error, warnings)) {
+	if (!g_items.loadFromGameXml(wxString("data/assets/items/items.xml"), error, warnings)) {
 		warnings.push_back("Couldn't load items.xml: " + error);
 	}
 
 	g_gui.SetLoadDone(45, "Loading creatures.xml ...");
-	if (!g_creatures.loadFromXML(wxString(data_path.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR) + "creatures.xml"), true, error, warnings)) {
+	if (!g_creatures.loadFromXML(wxString("data/creatures/creatures.xml"), true, error, warnings)) {
 		warnings.push_back("Couldn't load creatures.xml: " + error);
 	}
 
@@ -381,7 +381,7 @@ bool GUI::LoadDataFiles(wxString& error, wxArrayString& warnings) {
 	}
 
 	g_gui.SetLoadDone(50, "Loading materials.xml ...");
-	if (!g_materials.loadMaterials(wxString(data_path.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR) + "materials.xml"), error, warnings)) {
+	if (!g_materials.loadMaterials(wxString("data/materials/materials.xml"), error, warnings)) {
 		warnings.push_back("Couldn't load materials.xml: " + error);
 	}
 
@@ -1319,21 +1319,21 @@ void GUI::SetTitle(wxString title) {
 #endif
 #ifdef __EXPERIMENTAL__
 	if (title != "") {
-		g_gui.root->SetTitle(title << " - OTAcademy Map Editor BETA" << TITLE_APPEND);
+		g_gui.root->SetTitle(title << " - Mythbound Map Editor BETA" << TITLE_APPEND);
 	} else {
-		g_gui.root->SetTitle(wxString("OTAcademy Map Editor BETA") << TITLE_APPEND);
+		g_gui.root->SetTitle(wxString("Mythbound Map Editor BETA") << TITLE_APPEND);
 	}
 #elif __SNAPSHOT__
 	if (title != "") {
-		g_gui.root->SetTitle(title << " - OTAcademy Map Editor - SNAPSHOT" << TITLE_APPEND);
+		g_gui.root->SetTitle(title << " - Mythbound Map Editor - SNAPSHOT" << TITLE_APPEND);
 	} else {
-		g_gui.root->SetTitle(wxString("OTAcademy Map Editor - SNAPSHOT") << TITLE_APPEND);
+		g_gui.root->SetTitle(wxString("Mythbound Map Editor - SNAPSHOT") << TITLE_APPEND);
 	}
 #else
 	if (!title.empty()) {
-		g_gui.root->SetTitle(title << " - OTAcademy Map Editor" << TITLE_APPEND);
+		g_gui.root->SetTitle(title << " - Mythbound Map Editor" << TITLE_APPEND);
 	} else {
-		g_gui.root->SetTitle(wxString("OTAcademy Map Editor") << TITLE_APPEND);
+		g_gui.root->SetTitle(wxString("Mythbound Map Editor") << TITLE_APPEND);
 	}
 #endif
 }

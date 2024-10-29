@@ -1,5 +1,4 @@
-Mythbound Map Editor
-=============
+# Map editor
 
 This is a map editor for game servers that derivied from [OpenTibia](https://github.com/tibia-oce/server) server project.
 
@@ -7,20 +6,17 @@ It is a fork of a [Map Editor](https://github.com/hampusborgos/rme) created by [
 
 ![rme](/docs/images/rme.png)
 
-Compiling
-=========
-Required libraries:
-* wxWidgets >= 3.0
-* Boost >= 1.55.0
+<br>
 
-### VCPKG libraries:
-* 32-bit : `vcpkg install wxwidgets freeglut asio nlohmann-json fmt libarchive boost-spirit`
-* 64-bit : `vcpkg install --triplet x64-windows wxwidgets freeglut asio nlohmann-json fmt libarchive boost-spirit`
+## Getting started
 
-[Compile on Windows](https://github.com/hjnilsson/rme/wiki/Compiling-on-Windows)
+Download the latest release [here](https://github.com/tibia-oce/map-editor/releases/latest).
 
-[Compile on Ubuntu](https://github.com/hjnilsson/rme/wiki/Compiling-on-Ubuntu)
+The assets used in the map editor are shared between a number of other services. They are tracked via [Git](https://git-scm.com/) to make collaboration and version tracking easier.
 
-[Compile on Arch Linux](https://github.com/hjnilsson/rme/wiki/Compiling-on-Arch-Linux)
+To get started contributing to the Mythbound world map and assets, you'll need to follow these [instructions](https://github.com/tibia-oce/assets?tab=readme-ov-file#prerequisites).
 
-[Compile on macOS](https://github.com/hjnilsson/rme/wiki/Compiling-on-macOS)
+
+## Committing changes
+
+If you follow the above [instructions](https://github.com/tibia-oce/assets?tab=readme-ov-file#prerequisites), you're changes were tracked against the published assets.
