@@ -182,7 +182,6 @@ target_sources(${PROJECT_NAME}
 	templatemapclassic.cpp
 	tile.cpp
 	tileset.cpp
-    application.cpp
     add_tileset_window.cpp
     add_item_window.cpp
     tileset_window.cpp
