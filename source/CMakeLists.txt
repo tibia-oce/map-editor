@@ -195,6 +195,7 @@ target_sources(${PROJECT_NAME}
 	json/json_spirit_reader.cpp
 	json/json_spirit_value.cpp
 	json/json_spirit_writer.cpp
+	main.cpp
 )
 
 target_include_directories(${PROJECT_NAME}
