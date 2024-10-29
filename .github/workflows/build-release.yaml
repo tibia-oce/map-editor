@@ -38,7 +38,7 @@ env:
 jobs:
   build:
     outputs:
-      artifact_name: build-artifact
+      artifact_name: artifacts
     if: ${{ github.event_name == 'push' || !github.event.pull_request.draft }}
     name: ${{ matrix.os }}-${{ matrix.buildtype }}
     runs-on: ${{ matrix.os }}
@@ -97,13 +97,9 @@ jobs:
       - name: Create and Upload Artifact
         uses: actions/upload-artifact@main
         with:
-          name: build-artifact
+          name: artifacts
           path: |
             ${{ github.workspace }}/*.exe
-
-      - name: Set artifact name output
-        id: set_artifact_name_output
-        run: echo "artifact_name=build-artifact" >> $GITHUB_ENV
 
   release:
     needs: [build]
@@ -121,12 +117,11 @@ jobs:
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
-          name: build-artifact
-          path: artifacts
+          name: artifacts
       
       - name: Create release zip
         run: |
-          zip -r map-editor.zip ./artifacts/build-artifact/*.exe data brushes extensions icons tools LICENSE.rtf
+          zip -r map-editor.zip ./artifacts/*.exe data brushes extensions icons tools LICENSE.rtf
         shell: bash
   
       - name: Upload release zip as artifact
