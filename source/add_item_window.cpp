@@ -44,7 +44,9 @@ EVT_BUTTON(wxID_OK, AddItemWindow::OnClickOK)
 EVT_BUTTON(wxID_CANCEL, AddItemWindow::OnClickCancel)
 END_EVENT_TABLE()
 
-static constexpr int OUTFIT_COLOR_MAX = 133;
+namespace {
+    constexpr int OUTFIT_COLOR_MAX = 133;
+}
 
 AddItemWindow::AddItemWindow(wxWindow* win_parent, TilesetCategoryType categoryType, Tileset* tilesetItem, wxPoint pos) :
 	ObjectPropertiesWindowBase(win_parent, "Add a Item", pos),

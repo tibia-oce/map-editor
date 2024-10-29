@@ -43,7 +43,9 @@ EVT_BUTTON(wxID_OK, TilesetWindow::OnClickOK)
 EVT_BUTTON(wxID_CANCEL, TilesetWindow::OnClickCancel)
 END_EVENT_TABLE()
 
-static constexpr int OUTFIT_COLOR_MAX = 133;
+namespace {
+    constexpr int OUTFIT_COLOR_MAX = 133;
+}
 
 TilesetWindow::TilesetWindow(wxWindow* win_parent, const Map* map, const Tile* tile_parent, Item* item, wxPoint pos) :
 	ObjectPropertiesWindowBase(win_parent, "Move to Tileset", map, tile_parent, item, pos),
