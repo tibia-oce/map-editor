@@ -1,0 +1,17 @@
+{
+    "name": "remeres",
+    "version-string": "1.0.0",
+    "dependencies": [
+        "asio",
+        "boost-asio",
+        "pugixml",
+        "glfw3",
+        "nlohmann-json",
+        "fmt",
+        "wxwidgets",
+        "opengl",
+        "libarchive",
+        "boost-spirit"
+    ],
+    "builtin-baseline": "67cc1677c3bf5c23ea14b9d2416c7422fdeac492"
+}

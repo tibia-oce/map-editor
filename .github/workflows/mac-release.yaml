@@ -74,6 +74,14 @@ jobs:
           restore-keys: |
             ccache-${{ matrix.os }}
 
+      - name: Select vcpkg.json based on architecture
+        run: |
+          if [[ "${{ matrix.buildtype }}" == "macos-arm64-release" ]]; then
+            cp vcpkg-arm.json vcpkg.json
+          else
+            cp vcpkg-amd.json vcpkg.json
+          fi
+
       - name: Restore artifacts and install vcpkg
         id: vcpkg-step
         run: |
