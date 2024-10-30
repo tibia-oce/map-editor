@@ -1,5 +1,3 @@
-# if: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop' }}
-
 name: Build & Release
 
 on:
