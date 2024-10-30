@@ -13,7 +13,8 @@ on:
       - 'brushes/**'
       - 'CMakeLists.txt'
       - 'CMakePresets.json'
-      - 'vcpkg.json'
+      - 'vcpkg-amd.json'
+      - 'vcpkg-arm.json'
       - 'build-windows-cmake.yml'
   push:
     branches:
@@ -26,7 +27,8 @@ on:
       - 'brushes/**'
       - 'CMakeLists.txt'
       - 'CMakePresets.json'
-      - 'vcpkg.json'
+      - 'vcpkg-amd.json'
+      - 'vcpkg-arm.json'
       - 'build-windows-cmake.yml'
       - '.github/workflows/mac-release.yaml'
 

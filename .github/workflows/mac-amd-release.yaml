@@ -13,7 +13,8 @@ on:
       - 'brushes/**'
       - 'CMakeLists.txt'
       - 'CMakePresets.json'
-      - 'vcpkg.json'
+      - 'vcpkg-amd.json'
+      - 'vcpkg-arm.json'
       - 'build-windows-cmake.yml'
   push:
     branches:
@@ -26,7 +27,8 @@ on:
       - 'brushes/**'
       - 'CMakeLists.txt'
       - 'CMakePresets.json'
-      - 'vcpkg.json'
+      - 'vcpkg-amd.json'
+      - 'vcpkg-arm.json'
       - 'build-windows-cmake.yml'
       - '.github/workflows/mac-amd-release.yaml'
 
@@ -73,6 +75,14 @@ jobs:
           key: ccache-${{ matrix.os }}-${{ matrix.buildtype }}
           restore-keys: |
             ccache-${{ matrix.os }}
+
+      - name: Select vcpkg.json based on architecture
+        run: |
+          if [[ "${{ matrix.buildtype }}" == "macos-arm64-release" ]]; then
+            cp vcpkg-arm.json vcpkg.json
+          else
+            cp vcpkg-amd.json vcpkg.json
+          fi
 
       - name: Restore artifacts and install vcpkg
         id: vcpkg-step
