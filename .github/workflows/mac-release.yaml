@@ -28,7 +28,7 @@ on:
       - 'CMakePresets.json'
       - 'vcpkg.json'
       - 'build-windows-cmake.yml'
-      # - '.github/workflows/mac-release.yaml'
+      - '.github/workflows/mac-release.yaml'
 
 env:
   CMAKE_BUILD_PARALLEL_LEVEL: 2
@@ -63,10 +63,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@main
 
-      - name: Install Linux Dependencies
-        run: >
-          sudo apt-get update && sudo apt-get install ccache linux-headers-$(uname -r)
-
       - name: CCache
         uses: hendrikmuhs/ccache-action@main
         with:
@@ -90,9 +86,6 @@ jobs:
 
       - name: Get latest CMake and ninja
         uses: lukka/get-cmake@main
-
-      - name: Install additional libraries
-        run: sudo apt-get install libasio-dev nlohmann-json3-dev libfmt-dev libxi-dev libgl1-mesa-dev libglu1-mesa-dev mesa-common-dev libxrandr-dev libxxf86vm-dev libglib2.0-dev at-spi2-core libwxgtk3.0-gtk3-dev libarchive-dev freeglut3-dev libxmu-dev libdbus-1-dev libxtst-dev
 
       - name: Run CMake Cache and Build
         uses: lukka/run-cmake@main
