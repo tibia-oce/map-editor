@@ -30,6 +30,7 @@ on:
       - 'CMakePresets.json'
       - 'vcpkg.json'
       - 'build-windows-cmake.yml'
+      - '.github/workflows/build-release.yaml'
 
 env:
   CMAKE_BUILD_PARALLEL_LEVEL: 2
