@@ -37,7 +37,6 @@ env:
 
 jobs:
   job:
-    if: ${{ github.event_name == 'push' }}
     name: ${{ matrix.os }}-${{ matrix.buildtype }}
     runs-on: ${{ matrix.os }}
 
@@ -52,7 +51,7 @@ jobs:
 
     steps:
       - name: Cancel Previous Runs
-        if: github.ref != 'refs/heads/main'
+        if: github.ref != 'refs/heads/master'
         uses: fkirc/skip-duplicate-actions@master
         with:
           concurrent_skipping: 'same_content'
