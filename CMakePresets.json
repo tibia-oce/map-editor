@@ -96,8 +96,7 @@
 			  "lhs": "${hostSystemName}",
 			  "rhs": "Darwin"
 			}
-		  }
-		  
+		},
 		{
 			"name": "windows-debug",
 			"inherits": "windows-release",
