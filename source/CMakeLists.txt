@@ -1,4 +1,3 @@
-
 # *****************************************************************************
 # Project remeres
 # *****************************************************************************
@@ -6,16 +5,23 @@ project(remeres)
 
 find_package(asio CONFIG REQUIRED)
 find_package(fmt CONFIG REQUIRED)
-find_package(GLUT REQUIRED)
-find_package(nlohmann_json CONFIG REQUIRED)
 find_package(OpenGL REQUIRED)
+find_package(nlohmann_json CONFIG REQUIRED)
 find_package(Threads REQUIRED)
-# find_package(wxWidgets CONFIG REQUIRED)
 find_package(wxWidgets COMPONENTS html aui gl adv core net base CONFIG REQUIRED)
 find_package(ZLIB REQUIRED)
 find_package(pugixml CONFIG REQUIRED)
 find_package(Boost REQUIRED COMPONENTS spirit utility asio)
 find_package(LibArchive REQUIRED)
+
+# Conditionally find and use GLFW instead of GLUT on macOS ARM
+if(APPLE AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm64")
+    find_package(glfw3 CONFIG REQUIRED)
+    add_definitions(-DUSE_GLFW)
+else()
+    find_package(GLUT REQUIRED)
+    add_definitions(-DUSE_FREEGLUT)
+endif()
 
 option(TOGGLE_BIN_FOLDER "Use build/bin folder for generate compilation files" OFF)
 option(OPTIONS_ENABLE_OPENMP "Enable Open Multi-Processing support." ON)
@@ -90,7 +96,7 @@ if(SPEED_UP_BUILD_UNITY)
 	log_option_enabled("Build unity for speed up compilation")
 endif()
 
-
+# === Target Sources ===
 target_sources(${PROJECT_NAME}
 	PRIVATE
 	about_window.cpp
@@ -195,29 +201,47 @@ target_sources(${PROJECT_NAME}
 	json/json_spirit_writer.cpp
 )
 
+# === Include Directories and Libraries ===
 target_include_directories(${PROJECT_NAME}
 	PRIVATE
 	${CMAKE_SOURCE_DIR}/source
 	${OPENGL_INCLUDE_DIR}
-	${GLUT_INCLUDE_DIRS}
 	${ZLIB_INCLUDE_DIR}
 )
 
-target_link_libraries(${PROJECT_NAME}
-    PRIVATE
-    ${OPENGL_LIBRARIES}
-    ${GLUT_LIBRARIES}
-    ${ZLIB_LIBRARIES}
-    fmt::fmt
-    asio::asio
-    nlohmann_json::nlohmann_json
-    pugixml::pugixml
-    wx::core wx::base wx::aui wx::gl wx::html wx::net
-    Boost::spirit Boost::utility Boost::asio
-    LibArchive::LibArchive
-)
+if(APPLE AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm64")
+    target_include_directories(${PROJECT_NAME} PRIVATE ${glfw3_INCLUDE_DIRS})
+    target_link_libraries(${PROJECT_NAME}
+        PRIVATE
+        ${OPENGL_LIBRARIES}
+        glfw
+        ${ZLIB_LIBRARIES}
+        fmt::fmt
+        asio::asio
+        nlohmann_json::nlohmann_json
+        pugixml::pugixml
+        wx::core wx::base wx::aui wx::gl wx::html wx::net
+        Boost::spirit Boost::utility Boost::asio
+        LibArchive::LibArchive
+    )
+else()
+    target_include_directories(${PROJECT_NAME} PRIVATE ${GLUT_INCLUDE_DIRS})
+    target_link_libraries(${PROJECT_NAME}
+        PRIVATE
+        ${OPENGL_LIBRARIES}
+        ${GLUT_LIBRARIES}
+        ${ZLIB_LIBRARIES}
+        fmt::fmt
+        asio::asio
+        nlohmann_json::nlohmann_json
+        pugixml::pugixml
+        wx::core wx::base wx::aui wx::gl wx::html wx::net
+        Boost::spirit Boost::utility Boost::asio
+        LibArchive::LibArchive
+    )
+endif()
 
-## Link compilation files to build/bin folder, else link to the main dir
+# === Output Directory ===
 if (TOGGLE_BIN_FOLDER)
 	set_target_properties(${PROJECT_NAME}
 			PROPERTIES

@@ -60,6 +60,9 @@ jobs:
           concurrent_skipping: 'same_content'
           cancel_others: true
 
+      - name: Install Ninja for macOS
+        run: brew install ninja
+
       - name: Checkout repository
         uses: actions/checkout@main
 
