@@ -181,6 +181,12 @@ jobs:
         run: |
           cp .github/.releaserc ./
 
+      - name: Download Map Editor Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ matrix.artifact_name }}
+          path: ./
+
       # Ensure that only one rc pre-release is active at a time by deleting the latest pre-release 
       # and its corresponding tag on the 'develop' branch. This avoids clutter from multiple rc 
       # releases after each merge into the develop branch.
