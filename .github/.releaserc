@@ -10,7 +10,9 @@
       "@semantic-release/github",
       {
         "assets": [
-          { "path": "map-editor.zip", "label": "Map Editor" }
+          { "path": "map-editor-windows.zip", "label": "Map Editor (Windows)" },
+          { "path": "map-editor-ubuntu.zip", "label": "Map Editor (Ubuntu)" },
+          { "path": "map-editor-macos.zip", "label": "Map Editor (MacOS)" }
         ]
       }
     ],
