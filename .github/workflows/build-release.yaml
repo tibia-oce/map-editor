@@ -262,17 +262,6 @@ jobs:
           mv linux-amd64-release-map-editor.zip map-editor-ubuntu.zip
           mv osx-arm64-release-map-editor.zip map-editor-macos.zip
 
-      - name: Create release zip
-        run: |
-          zip -r map-editor.zip remeres.exe data brushes extensions icons tools LICENSE.rtf
-        shell: bash
-  
-      - name: Upload release zip as artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: map-editor
-          path: map-editor.zip
-
       - name: Use Node.js 20.x
         uses: actions/setup-node@v3
         with:
