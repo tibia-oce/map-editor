@@ -15,7 +15,6 @@ on:
       - 'CMakePresets.json'
       - 'vcpkg-amd.json'
       - 'vcpkg-arm.json'
-      - '.github/workflows/build-release.yaml'
   push:
     branches:
       - master
@@ -45,21 +44,21 @@ jobs:
       matrix:
         include:
           - os: ubuntu-22.04
-            artifact_name: map-editor-ubuntu
+            artifact_name: map-editor-ubuntu.zip
             buildtype: linux-amd64-release
             vcpkg_json: vcpkg-amd.json
             triplet: x64-linux
             additional_packages: "libasio-dev nlohmann-json3-dev libfmt-dev libxi-dev libgl1-mesa-dev libglu1-mesa-dev mesa-common-dev libxrandr-dev libxxf86vm-dev libglib2.0-dev at-spi2-core libwxgtk3.0-gtk3-dev libarchive-dev freeglut3-dev libxmu-dev libdbus-1-dev libxtst-dev"
 
           - os: macos-12
-            artifact_name: map-editor-macos
+            artifact_name: map-editor-macos.zip
             buildtype: osx-arm64-release
             vcpkg_json: vcpkg-arm.json
             triplet: arm64-osx
             additional_packages: "ninja"
 
           - os: windows-2022
-            artifact_name: map-editor-windows
+            artifact_name: map-editor-windows.zip
             buildtype: windows-amd64-release
             triplet: x64-windows-static
             vcpkg_json: vcpkg-amd.json
