@@ -38,7 +38,7 @@ jobs:
   build:
     name: ${{ matrix.buildtype }}-${{ matrix.os }}
     runs-on: ${{ matrix.os }}
-    
+
     strategy:
       fail-fast: false
       matrix:
@@ -53,6 +53,10 @@ jobs:
             triplet: arm64-osx
             vcpkg_json: vcpkg-arm.json
             additional_packages: "ninja"
+          - os: windows-2022
+            buildtype: windows-release
+            triplet: x64-windows-static
+            additional_packages: "sccache"
 
     steps:
       - name: Cancel Previous Runs
@@ -72,6 +76,7 @@ jobs:
           elif [[ "${{ matrix.os }}" == "macos-12" ]]; then
             brew install ${{ matrix.additional_packages }}
           fi
+        if: runner.os != 'Windows'
 
       - name: CCache
         uses: hendrikmuhs/ccache-action@main
@@ -82,14 +87,29 @@ jobs:
             ccache-${{ matrix.os }}
 
       - name: Select vcpkg.json based on architecture
-        run: cp ${{ matrix.vcpkg_json }} vcpkg.json
+        run: |
+          if [[ "${{ matrix.os }}" == "windows-2022" ]]; then
+            cp vcpkg-amd.json vcpkg.json
+          else
+            cp ${{ matrix.vcpkg_json }} vcpkg.json
+          fi
+        
+      - name: Restore artifacts and install vcpkg (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          $json=Get-Content vcpkg.json -Raw | ConvertFrom-Json
+          $vcpkgCommitId=$json.'builtin-baseline'
+          Write-Host "vcpkg commit ID: $vcpkgCommitId"
+          echo "VCPKG_GIT_COMMIT_ID=$vcpkgCommitId" | Out-File -FilePath $env:GITHUB_ENV -Append
+        shell: pwsh
 
-      - name: Restore artifacts and install vcpkg
-        id: vcpkg-step
+      - name: Restore artifacts and install vcpkg (Non-Windows)
+        if: runner.os != 'Windows'
         run: |
           vcpkgCommitId=$(grep '.builtin-baseline' vcpkg.json | awk -F: '{print $2}' | tr -d '," ')
           echo "vcpkg commit ID: $vcpkgCommitId"
           echo "VCPKG_GIT_COMMIT_ID=$vcpkgCommitId" >> $GITHUB_ENV
+        shell: bash
 
       - name: Get vcpkg commit id from vcpkg.json
         uses: lukka/run-vcpkg@main
@@ -106,7 +126,16 @@ jobs:
           configurePreset: ${{ matrix.buildtype }}
           buildPreset: ${{ matrix.buildtype }}
 
-      - name: Upload artifacts
+      - name: Upload artifacts (Windows)
+        if: runner.os == 'Windows'
+        uses: actions/upload-artifact@main
+        with:
+          name: ${{ matrix.os }}-${{ matrix.buildtype }}
+          path: |
+            ${{ github.workspace }}/*.exe
+
+      - name: Upload artifacts (Linux/macOS)
+        if: runner.os != 'Windows'
         uses: actions/upload-artifact@main
         with:
           name: ${{ matrix.os }}-${{ matrix.buildtype }}
