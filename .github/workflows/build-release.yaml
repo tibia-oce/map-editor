@@ -184,7 +184,6 @@ jobs:
       - name: Download Map Editor Artifacts
         uses: actions/download-artifact@v3
         with:
-          name: ${{ matrix.artifact_name }}
           path: ./
 
       # Ensure that only one rc pre-release is active at a time by deleting the latest pre-release 
