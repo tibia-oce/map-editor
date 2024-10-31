@@ -77,7 +77,7 @@
 			}
 		},
 		{
-			"name": "macos-arm64-release",
+			"name": "osx-arm64-release",
 			"displayName": "macOS ARM64 - Release",
 			"description": "Sets Ninja generator, compilers, build and install directory and set build type as release",
 			"generator": "Ninja",
@@ -159,8 +159,8 @@
 			"configurePreset": "macos-debug"
 		},
 		{
-			"name": "macos-arm64-release",
-			"configurePreset": "macos-arm64-release"
+			"name": "osx-arm64-release",
+			"configurePreset": "osx-arm64-release"
 		}
 	]
 }

@@ -78,7 +78,7 @@ jobs:
 
       - name: Select vcpkg.json based on architecture
         run: |
-          if [[ "${{ matrix.buildtype }}" == "macos-arm64-release" ]]; then
+          if [[ "${{ matrix.buildtype }}" == "osx-arm64-release" ]]; then
             cp vcpkg-arm.json vcpkg.json
           else
             cp vcpkg-amd.json vcpkg.json
