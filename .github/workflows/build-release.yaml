@@ -44,21 +44,21 @@ jobs:
       matrix:
         include:
           - os: ubuntu-22.04
-            artifact_name: map-editor-ubuntu.zip
+            artifact_name: map-editor-ubuntu
             buildtype: linux-amd64-release
             vcpkg_json: vcpkg-amd.json
             triplet: x64-linux
             additional_packages: "libasio-dev nlohmann-json3-dev libfmt-dev libxi-dev libgl1-mesa-dev libglu1-mesa-dev mesa-common-dev libxrandr-dev libxxf86vm-dev libglib2.0-dev at-spi2-core libwxgtk3.0-gtk3-dev libarchive-dev freeglut3-dev libxmu-dev libdbus-1-dev libxtst-dev"
 
           - os: macos-12
-            artifact_name: map-editor-macos.zip
+            artifact_name: map-editor-macos
             buildtype: osx-arm64-release
             vcpkg_json: vcpkg-arm.json
             triplet: arm64-osx
             additional_packages: "ninja"
 
           - os: windows-2022
-            artifact_name: map-editor-windows.zip
+            artifact_name: map-editor-windows
             buildtype: windows-amd64-release
             triplet: x64-windows-static
             vcpkg_json: vcpkg-amd.json
@@ -71,28 +71,20 @@ jobs:
         with:
           concurrent_skipping: 'same_content'
           cancel_others: true
-
-      - name: Cancel Previous Runs
-        if: github.ref != 'refs/heads/master'
-        uses: fkirc/skip-duplicate-actions@master
-        with:
-          concurrent_skipping: 'same_content'
-          cancel_others: true
     
       - name: Checkout repository
         uses: actions/checkout@main
     
-      - name: Install system dependencies
-        if: runner.os != 'Windows'
-        run: |
-          if [[ "${{ matrix.os }}" == "ubuntu-22.04" ]]; then
-            sudo apt-get update && sudo apt-get install -y ${{ matrix.additional_packages }}
-          elif [[ "${{ matrix.os }}" == "macos-12" ]]; then
-            brew install ${{ matrix.additional_packages }}
-          fi
-    
-      - name: Install zip (Windows)
-        if: runner.os == 'Windows'
+      - name: Install additional dependencies on Ubuntu
+        if: matrix.os == 'ubuntu-22.04'
+        run: sudo apt-get update && sudo apt-get install -y ${{ matrix.additional_packages }}
+      
+      - name: Install additional dependencies on macOS
+        if: matrix.os == 'macos-12'
+        run: brew install ${{ matrix.additional_packages }}
+      
+      - name: Install additional dependencies on Windows
+        if: matrix.os == 'windows-2022'
         run: choco install zip -y
         shell: powershell
 
