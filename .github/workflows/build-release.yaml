@@ -46,16 +46,17 @@ jobs:
           - os: ubuntu-22.04
             buildtype: linux-amd64-release
             triplet: x64-linux
-            vcpkg_json: vcpkg-amd.json
+            artifact_name: map-editor-ubuntu.zip
             additional_packages: "libasio-dev nlohmann-json3-dev libfmt-dev libxi-dev libgl1-mesa-dev libglu1-mesa-dev mesa-common-dev libxrandr-dev libxxf86vm-dev libglib2.0-dev at-spi2-core libwxgtk3.0-gtk3-dev libarchive-dev freeglut3-dev libxmu-dev libdbus-1-dev libxtst-dev"
           - os: macos-12
             buildtype: osx-arm64-release
             triplet: arm64-osx
-            vcpkg_json: vcpkg-arm.json
+            artifact_name: map-editor-macos.zip
             additional_packages: "ninja"
           - os: windows-2022
             buildtype: windows-amd64-release
             triplet: x64-windows-static
+            artifact_name: map-editor-windows.zip
             additional_packages: "sccache"
 
     steps:
@@ -129,105 +130,21 @@ jobs:
           configurePreset: ${{ matrix.buildtype }}
           buildPreset: ${{ matrix.buildtype }}
 
-      - name: Upload artifacts (Windows)
-        if: runner.os == 'Windows'
-        uses: actions/upload-artifact@main
-        with:
-          name: ${{ matrix.os }}-${{ matrix.buildtype }}
-          path: |
-            ${{ github.workspace }}/*.exe
-
-      - name: Upload artifacts (Linux/macOS)
-        if: runner.os != 'Windows'
-        uses: actions/upload-artifact@main
-        with:
-          name: ${{ matrix.os }}-${{ matrix.buildtype }}
-          path: |
-            ${{ github.workspace }}/remeres
-
-  build:
-    outputs:
-      artifact_name: artifacts
-    if: ${{ github.event_name == 'push' || !github.event.pull_request.draft }}
-    name: ${{ matrix.os }}-${{ matrix.buildtype }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [windows-2022]
-        buildtype: [ windows-amd64-release ]
-        include:
-          - os: windows-2022
-            triplet: x64-windows-static
-            packages: >
-              sccache
-    steps:
-      - name: Cancel Previous Runs
-        if: github.ref != 'refs/heads/main'
-        uses: fkirc/skip-duplicate-actions@master
-        with:
-          concurrent_skipping: 'same_content'
-          cancel_others: true
-
-      - name: Checkout repository
-        uses: actions/checkout@main
-
-      - name: CCache
-        uses: hendrikmuhs/ccache-action@main
-        with:
-          max-size: "1G"
-          variant: "sccache"
-          key: ccache-${{ matrix.os }}-${{ matrix.buildtype }}
-          restore-keys: |
-            ccache-${{ matrix.os }}
-
-      - name: Restore artifacts and install vcpkg
-        id: vcpkg-step
+      - name: Package Release Files
         run: |
-          $json=Get-Content vcpkg.json -Raw | ConvertFrom-Json
-          $vcpkgCommitId=$json.'builtin-baseline'
-          Write-Host "vcpkg commit ID: $vcpkgCommitId"
-          echo "VCPKG_GIT_COMMIT_ID=$vcpkgCommitId" | Out-File -FilePath $env:GITHUB_ENV -Append
-
-      - name: Get vcpkg commit id from vcpkg.json
-        uses: lukka/run-vcpkg@main
-        with:
-          vcpkgGitURL: "https://github.com/microsoft/vcpkg.git"
-          vcpkgGitCommitId: ${{ env.VCPKG_GIT_COMMIT_ID }}
-
-      - name: Get latest CMake and ninja
-        uses: lukka/get-cmake@main
-
-      - name: Run CMake
-        uses: lukka/run-cmake@main
-        with:
-          configurePreset: ${{ matrix.buildtype }}
-          buildPreset: ${{ matrix.buildtype }}
-
-      - name: Create zip artifact (Windows)
-        if: matrix.os == 'windows-2022'
-        run: |
-          zip -r map-editor-windows.zip remeres.exe data brushes extensions icons tools LICENSE.rtf
-        shell: bash
-
-      - name: Create zip artifact (Ubuntu)
-        if: matrix.os == 'ubuntu-22.04'
-        run: |
-          zip -r map-editor-ubuntu.zip remeres data brushes extensions icons tools LICENSE.rtf
-        shell: bash
-
-      - name: Create zip artifact (macOS)
-        if: matrix.os == 'macos-12'
-        run: |
-          zip -r map-editor-macos.zip remeres data brushes extensions icons tools LICENSE.rtf
+          if [[ "${{ matrix.os }}" == "windows-2022" ]]; then
+            zip -r ${{ matrix.artifact_name }} remeres.exe data brushes extensions icons tools LICENSE.rtf
+          else
+            zip -r ${{ matrix.artifact_name }} remeres data brushes extensions icons tools LICENSE.rtf
+          fi
         shell: bash
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ matrix.buildtype }}-map-editor
-          path: map-editor-*.zip
+          name: ${{ matrix.artifact_name }}
+          path: ${{ matrix.artifact_name }}
 
-            
   release:
     needs: [build]
     runs-on: ubuntu-latest
@@ -241,26 +158,21 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Download Windows artifact
+      - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
-          name: windows-amd64-release-map-editor
-
-      - name: Download Ubuntu artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: linux-amd64-release-map-editor
-
-      - name: Download macOS artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: osx-arm64-release-map-editor
-
-      - name: Rename artifacts for release
+          name: artifacts
+      
+      - name: Create release zip
         run: |
-          mv windows-amd64-release-map-editor.zip map-editor-windows.zip
-          mv linux-amd64-release-map-editor.zip map-editor-ubuntu.zip
-          mv osx-arm64-release-map-editor.zip map-editor-macos.zip
+          zip -r map-editor.zip remeres.exe data brushes extensions icons tools LICENSE.rtf
+        shell: bash
+  
+      - name: Upload release zip as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: map-editor
+          path: map-editor.zip
 
       - name: Use Node.js 20.x
         uses: actions/setup-node@v3
