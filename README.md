@@ -15,8 +15,3 @@ Download the latest release [here](https://github.com/tibia-oce/map-editor/relea
 The assets used in the map editor are shared between a number of other services. They are tracked via [Git](https://git-scm.com/) to make collaboration and version tracking easier.
 
 To get started contributing to the Mythbound world map and assets, you'll need to follow these [instructions](https://github.com/tibia-oce/assets?tab=readme-ov-file#prerequisites).
-
-
-## Committing changes
-
-If you follow the above [instructions](https://github.com/tibia-oce/assets?tab=readme-ov-file#prerequisites), you're changes were tracked against the published assets.
