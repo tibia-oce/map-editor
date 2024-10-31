@@ -83,14 +83,19 @@ jobs:
         uses: actions/checkout@main
     
       - name: Install system dependencies
+        if: runner.os != 'Windows'
         run: |
           if [[ "${{ matrix.os }}" == "ubuntu-22.04" ]]; then
             sudo apt-get update && sudo apt-get install -y ${{ matrix.additional_packages }}
           elif [[ "${{ matrix.os }}" == "macos-12" ]]; then
             brew install ${{ matrix.additional_packages }}
           fi
-        if: runner.os != 'Windows'
     
+      - name: Install zip (Windows)
+        if: runner.os == 'Windows'
+        run: choco install zip -y
+        shell: powershell
+
       - name: CCache
         uses: hendrikmuhs/ccache-action@main
         with:
