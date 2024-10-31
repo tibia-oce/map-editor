@@ -15,6 +15,7 @@ on:
       - 'CMakePresets.json'
       - 'vcpkg-amd.json'
       - 'vcpkg-arm.json'
+      - '.github/workflows/build-release.yaml'
   push:
     branches:
       - master
