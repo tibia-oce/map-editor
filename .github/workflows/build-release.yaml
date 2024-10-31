@@ -44,21 +44,26 @@ jobs:
       matrix:
         include:
           - os: ubuntu-22.04
-            buildtype: linux-amd64-release
-            triplet: x64-linux
             artifact_name: map-editor-ubuntu.zip
+            buildtype: linux-amd64-release
+            vcpkg_json: vcpkg-amd.json
+            triplet: x64-linux
             additional_packages: "libasio-dev nlohmann-json3-dev libfmt-dev libxi-dev libgl1-mesa-dev libglu1-mesa-dev mesa-common-dev libxrandr-dev libxxf86vm-dev libglib2.0-dev at-spi2-core libwxgtk3.0-gtk3-dev libarchive-dev freeglut3-dev libxmu-dev libdbus-1-dev libxtst-dev"
+
           - os: macos-12
-            buildtype: osx-arm64-release
-            triplet: arm64-osx
             artifact_name: map-editor-macos.zip
+            buildtype: osx-arm64-release
+            vcpkg_json: vcpkg-arm.json
+            triplet: arm64-osx
             additional_packages: "ninja"
+
           - os: windows-2022
+            artifact_name: map-editor-windows.zip
             buildtype: windows-amd64-release
             triplet: x64-windows-static
-            artifact_name: map-editor-windows.zip
+            vcpkg_json: vcpkg-amd.json
             additional_packages: "sccache"
-
+              
     steps:
       - name: Cancel Previous Runs
         if: github.ref != 'refs/heads/master'
@@ -67,9 +72,16 @@ jobs:
           concurrent_skipping: 'same_content'
           cancel_others: true
 
+      - name: Cancel Previous Runs
+        if: github.ref != 'refs/heads/master'
+        uses: fkirc/skip-duplicate-actions@master
+        with:
+          concurrent_skipping: 'same_content'
+          cancel_others: true
+    
       - name: Checkout repository
         uses: actions/checkout@main
-
+    
       - name: Install system dependencies
         run: |
           if [[ "${{ matrix.os }}" == "ubuntu-22.04" ]]; then
@@ -78,7 +90,7 @@ jobs:
             brew install ${{ matrix.additional_packages }}
           fi
         if: runner.os != 'Windows'
-
+    
       - name: CCache
         uses: hendrikmuhs/ccache-action@main
         with:
@@ -86,18 +98,18 @@ jobs:
           key: ccache-${{ matrix.os }}-${{ matrix.buildtype }}
           restore-keys: |
             ccache-${{ matrix.os }}
-
+    
       - name: Select vcpkg.json based on architecture (Windows)
         if: runner.os == 'Windows'
         run: |
           Copy-Item -Path $env:GITHUB_WORKSPACE\vcpkg-amd.json -Destination $env:GITHUB_WORKSPACE\vcpkg.json
         shell: pwsh
-
+    
       - name: Select vcpkg.json based on architecture (Linux/macOS)
         if: runner.os != 'Windows'
         run: cp ${{ matrix.vcpkg_json }} vcpkg.json
         shell: bash
-
+    
       - name: Restore artifacts and install vcpkg (Windows)
         if: runner.os == 'Windows'
         run: |
@@ -106,7 +118,7 @@ jobs:
           Write-Host "vcpkg commit ID: $vcpkgCommitId"
           echo "VCPKG_GIT_COMMIT_ID=$vcpkgCommitId" | Out-File -FilePath $env:GITHUB_ENV -Append
         shell: pwsh
-
+    
       - name: Restore artifacts and install vcpkg (Non-Windows)
         if: runner.os != 'Windows'
         run: |
