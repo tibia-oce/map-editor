@@ -237,9 +237,3 @@ jobs:
             git push origin $new_tag  # Push the new tag to the remote
             git push origin :refs/tags/$latest_tag  # Delete the old tag on the remote
           fi
-
-      - name: Extract Release Version
-        id: extract_version
-        run: |
-          VERSION=$(git describe --tags --abbrev=0)
-          echo "RELEASE_VERSION=${VERSION}" >> $GITHUB_OUTPUT
