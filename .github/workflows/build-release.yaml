@@ -15,7 +15,6 @@ on:
       - 'CMakePresets.json'
       - 'vcpkg-amd.json'
       - 'vcpkg-arm.json'
-      - 'build-windows-cmake.yml'
   push:
     branches:
       - master
@@ -29,7 +28,6 @@ on:
       - 'CMakePresets.json'
       - 'vcpkg-amd.json'
       - 'vcpkg-arm.json'
-      - 'build-windows-cmake.yml'
       - '.github/workflows/build-release.yaml'
 
 env:
@@ -37,18 +35,24 @@ env:
   MAKEFLAGS: '-j 2'
 
 jobs:
-  job:
-    name: ${{ matrix.os }}-${{ matrix.buildtype }}
+  build:
+    name: Build & Release ${{ matrix.os }}-${{ matrix.buildtype }}
     runs-on: ${{ matrix.os }}
-
+    
     strategy:
       fail-fast: false
       matrix:
-        os: [ ubuntu-22.04 ]
-        buildtype: [ linux-release ]
         include:
           - os: ubuntu-22.04
+            buildtype: linux-release
             triplet: x64-linux
+            vcpkg_json: vcpkg-amd.json
+            additional_packages: "libasio-dev nlohmann-json3-dev libfmt-dev libxi-dev libgl1-mesa-dev libglu1-mesa-dev mesa-common-dev libxrandr-dev libxxf86vm-dev libglib2.0-dev at-spi2-core libwxgtk3.0-gtk3-dev libarchive-dev freeglut3-dev libxmu-dev libdbus-1-dev libxtst-dev"
+          - os: macos-12
+            buildtype: macos-arm64-release
+            triplet: arm64-osx
+            vcpkg_json: vcpkg-arm.json
+            additional_packages: "ninja"
 
     steps:
       - name: Cancel Previous Runs
@@ -61,9 +65,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@main
 
-      - name: Install Linux Dependencies
-        run: >
-          sudo apt-get update && sudo apt-get install ccache linux-headers-$(uname -r)
+      - name: Install system dependencies
+        run: |
+          if [[ "${{ matrix.os }}" == "ubuntu-22.04" ]]; then
+            sudo apt-get update && sudo apt-get install -y ${{ matrix.additional_packages }}
+          elif [[ "${{ matrix.os }}" == "macos-12" ]]; then
+            brew install ${{ matrix.additional_packages }}
+          fi
 
       - name: CCache
         uses: hendrikmuhs/ccache-action@main
@@ -74,12 +82,7 @@ jobs:
             ccache-${{ matrix.os }}
 
       - name: Select vcpkg.json based on architecture
-        run: |
-          if [[ "${{ matrix.buildtype }}" == "macos-arm64-release" ]]; then
-            cp vcpkg-arm.json vcpkg.json
-          else
-            cp vcpkg-amd.json vcpkg.json
-          fi
+        run: cp ${{ matrix.vcpkg_json }} vcpkg.json
 
       - name: Restore artifacts and install vcpkg
         id: vcpkg-step
@@ -96,9 +99,6 @@ jobs:
 
       - name: Get latest CMake and ninja
         uses: lukka/get-cmake@main
-
-      - name: Install additional libraries
-        run: sudo apt-get install libasio-dev nlohmann-json3-dev libfmt-dev libxi-dev libgl1-mesa-dev libglu1-mesa-dev mesa-common-dev libxrandr-dev libxxf86vm-dev libglib2.0-dev at-spi2-core libwxgtk3.0-gtk3-dev libarchive-dev freeglut3-dev libxmu-dev libdbus-1-dev libxtst-dev
 
       - name: Run CMake Cache and Build
         uses: lukka/run-cmake@main
