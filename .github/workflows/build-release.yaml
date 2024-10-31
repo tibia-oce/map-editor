@@ -148,9 +148,6 @@ jobs:
   release:
     needs: [build]
     runs-on: ubuntu-latest
-    outputs:
-      release-version: ${{ steps.extract_version.outputs.RELEASE_VERSION }}
-      is-prerelease: ${{ steps.prerelease_check.outputs.IS_PRERELEASE }}
 
     steps:
       - name: Checkout code
@@ -178,6 +175,8 @@ jobs:
       # Ensure that only one rc pre-release is active at a time by deleting the latest pre-release 
       # and its corresponding tag on the 'develop' branch. This avoids clutter from multiple rc 
       # releases after each merge into the develop branch.
+      # todo: should probably do this after a successfuly prelease... else if a step fails
+      # it will remove the previous rc and leave nothing
       - name: Delete Existing Pre-release and Tag (Develop Branch Only)
         if: github.ref == 'refs/heads/develop'
         env:
@@ -232,12 +231,3 @@ jobs:
         run: |
           VERSION=$(git describe --tags --abbrev=0)
           echo "RELEASE_VERSION=${VERSION}" >> $GITHUB_OUTPUT
-  
-      - name: Determine if Pre-release
-        id: prerelease_check
-        run: |
-          if [[ "${{ steps.extract_version.outputs.RELEASE_VERSION }}" == *"-"* ]]; then
-            echo "IS_PRERELEASE=true" >> $GITHUB_OUTPUT
-          else
-            echo "IS_PRERELEASE=false" >> $GITHUB_OUTPUT
-          fi
