@@ -86,14 +86,17 @@ jobs:
           restore-keys: |
             ccache-${{ matrix.os }}
 
-      - name: Select vcpkg.json based on architecture
+      - name: Select vcpkg.json based on architecture (Windows)
+        if: runner.os == 'Windows'
         run: |
-          if [[ "${{ matrix.os }}" == "windows-2022" ]]; then
-            cp vcpkg-amd.json vcpkg.json
-          else
-            cp ${{ matrix.vcpkg_json }} vcpkg.json
-          fi
-        
+          Copy-Item -Path $env:GITHUB_WORKSPACE\vcpkg-amd.json -Destination $env:GITHUB_WORKSPACE\vcpkg.json
+        shell: pwsh
+
+      - name: Select vcpkg.json based on architecture (Linux/macOS)
+        if: runner.os != 'Windows'
+        run: cp ${{ matrix.vcpkg_json }} vcpkg.json
+        shell: bash
+
       - name: Restore artifacts and install vcpkg (Windows)
         if: runner.os == 'Windows'
         run: |
