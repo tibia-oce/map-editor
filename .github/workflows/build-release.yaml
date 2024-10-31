@@ -158,22 +158,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Download build artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: artifacts
-      
-      - name: Create release zip
-        run: |
-          zip -r map-editor.zip remeres.exe data brushes extensions icons tools LICENSE.rtf
-        shell: bash
-  
-      - name: Upload release zip as artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: map-editor
-          path: map-editor.zip
-
       - name: Use Node.js 20.x
         uses: actions/setup-node@v3
         with:
