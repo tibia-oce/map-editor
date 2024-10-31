@@ -7,7 +7,7 @@
 	},
 	"configurePresets": [
 		{
-			"name": "windows-release",
+			"name": "windows-amd64-release",
 			"displayName": "Windows - Release",
 			"description": "Sets Ninja generator, compilers, build and install directory and set build type as release",
 			"generator": "Ninja",
@@ -37,7 +37,7 @@
 			}
 		},
 		{
-			"name": "linux-release",
+			"name": "linux-amd64-release",
 			"displayName": "Linux - Release",
 			"description": "Sets Ninja generator, compilers, build and install directory and set build type as release",
 			"generator": "Ninja",
@@ -100,7 +100,7 @@
 		},
 		{
 			"name": "windows-debug",
-			"inherits": "windows-release",
+			"inherits": "windows-amd64-release",
 			"displayName": "Windows - Debug",
 			"description": "Build Debug Mode",
 			"cacheVariables": {
@@ -114,7 +114,7 @@
 		},
 		{
 			"name": "linux-debug",
-			"inherits": "linux-release",
+			"inherits": "linux-amd64-release",
 			"displayName": "Linux - Debug Build",
 			"description": "Build Debug Mode",
 			"cacheVariables": {
@@ -135,16 +135,16 @@
 	],
 	"buildPresets": [
 		{
-			"name": "linux-release",
-			"configurePreset": "linux-release"
+			"name": "linux-amd64-release",
+			"configurePreset": "linux-amd64-release"
 		},
 		{
 			"name": "linux-debug",
 			"configurePreset": "linux-debug"
 		},
 		{
-			"name": "windows-release",
-			"configurePreset": "windows-release"
+			"name": "windows-amd64-release",
+			"configurePreset": "windows-amd64-release"
 		},
 		{
 			"name": "windows-Xdebug",
