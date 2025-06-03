@@ -5,6 +5,14 @@
 	<creature name="A Bearded Woman" type="npc" looktype="140" lookitem="0" lookaddon="0" lookhead="60" lookbody="22" looklegs="24" lookfeet="32" />
 	<creature name="A Beautiful Girl" type="npc" looktype="140" lookitem="0" lookaddon="0" lookhead="77" lookbody="81" looklegs="79" lookfeet="95" />
 	<creature name="Apotroph" type="npc" looktype="908"/>
+	<creature name="Vazallia" type="npc" looktype="1372" lookitem="0" lookaddon="3" lookhead="31" lookbody="78" looklegs="56" lookfeet="41"/>
+	<creature name="Terkie" type="npc" looktype="1200" lookitem="0" lookaddon="3" lookhead="59" lookbody="111" looklegs="73" lookfeet="18"/>
+	<creature name="Maegu" type="npc" looktype="1219" lookitem="0" lookaddon="3" lookhead="47" lookbody="11" looklegs="32" lookfeet="96"/>
+	<creature name="Siesbarg" type="npc" looktype="1196" lookitem="0" lookaddon="3" lookhead="61" lookbody="73" looklegs="33" lookfeet="91"/>
+	<creature name="Nedos" type="npc" looktype="1219" lookitem="0" lookaddon="3" lookhead="54" lookbody="14" looklegs="27" lookfeet="108"/>
+	<creature name="Eppu" type="npc" looktype="565"/>
+	<creature name="Kazal" type="npc" looktype="605"/>
+	<creature name="Rabul" type="npc" looktype="720"/>
 	<creature name="Elyotrope" type="npc" looktype="504"/>
 	<creature name="Estherya" type="npc" looktype="973" lookaddon="3"/>
 	<creature name="Toffee" type="npc" looktype="1291"/>
@@ -189,6 +197,12 @@
 	<creature name="Captain Cookie" type="npc" looktype="96" lookitem="0" lookaddon="0" lookhead="0" lookbody="0" looklegs="0" lookfeet="0" />
 	<creature name="Captain Dreadnought" type="npc" looktype="155" lookitem="0" lookaddon="0" lookhead="96" lookbody="0" looklegs="78" lookfeet="96" />
 	<creature name="Captain Fearless" type="npc" looktype="129" lookitem="0" lookaddon="0" lookhead="19" lookbody="113" looklegs="95" lookfeet="115" />
+	<creature name="Captain Vyrsk" type="npc" looktype="1202" lookitem="0" lookaddon="3" lookhead="114" lookbody="86" looklegs="38" lookfeet="94" />
+	<creature name="Captain Dorn" type="npc" looktype="1213" lookitem="0" lookaddon="3" lookhead="83" lookbody="77" looklegs="91" lookfeet="88" />
+	<creature name="Captain Hallowfall" type="npc" looktype="1215" lookitem="0" lookaddon="3" lookhead="43" lookbody="67" looklegs="101" lookfeet="58" />
+	<creature name="Captain Vardenfell" type="npc" looktype="1219" lookitem="0" lookaddon="3" lookhead="38" lookbody="87" looklegs="91" lookfeet="68" />
+	<creature name="Captain Frosthold" type="npc" looktype="1211" lookitem="0" lookaddon="3" lookhead="59" lookbody="37" looklegs="41" lookfeet="94" />
+	<creature name="Captain Khaz" type="npc" looktype="1199" lookitem="0" lookaddon="3" lookhead="94" lookbody="36" looklegs="28" lookfeet="19" />
 	<creature name="Captain Greyhound" type="npc" looktype="129" lookitem="0" lookaddon="0" lookhead="96" lookbody="113" looklegs="95" lookfeet="115" />
 	<creature name="Captain Gulliver" type="npc" looktype="472" lookitem="0" lookaddon="0" lookhead="0" lookbody="57" looklegs="20" lookfeet="39" />
 	<creature name="Captain Haba" type="npc" looktype="98" lookitem="0" lookaddon="0" lookhead="0" lookbody="0" looklegs="0" lookfeet="0" />
@@ -970,11 +984,58 @@
 	<creature name="Zumtah" type="npc" looktype="51" lookitem="0" lookaddon="0" lookhead="0" lookbody="0" looklegs="0" lookfeet="0" />
 	<creature name="zurak" type="npc" looktype="114" lookitem="0" lookaddon="0" lookhead="0" lookbody="0" looklegs="0" lookfeet="0" />
 	<creature name="zurakarena" type="npc" looktype="114" lookitem="0" lookaddon="0" lookhead="0" lookbody="0" looklegs="0" lookfeet="0" />
+	<creature name="Cendevin" type="npc" looktype="516" lookitem="0" lookaddon="2" lookhead="57" lookbody="61" looklegs="19" lookfeet="45" />
+	<creature name="Stymie" type="npc" looktype="684" lookitem="0" lookaddon="2" lookhead="97" lookbody="41" looklegs="33" lookfeet="67" />
+	
+	
 	
 	<!-- Monsters -->	
 	<creature name="A Shielded Astral Glyph" type="monster" looktype="0" lookitem="26894" lookaddon="0" lookhead="0" lookbody="0" looklegs="0" lookfeet="0" />
 	<creature name="Angry Sugar Fairy" type="monster" looktype="1288" lookaddon="0" lookhead="34" lookbody="25" looklegs="35" lookfeet="94" />
+	<creature name="Belomimus" type="monster" looktype="1377"/>
+	<creature name="Demibeast" type="monster" looktype="1378"/>
+	<creature name="Bloodfang Reaver" type="monster" looktype="1385"/>
+	<creature name="Bonecrusher" type="monster" looktype="1383"/>
+	<creature name="Grave Sentinel" type="monster" looktype="1381"/>
+	<creature name="Hedgehog" type="monster" looktype="1379"/>
+	<creature name="Helm Hunter" type="monster" looktype="1380"/>
+	<creature name="Pale Lancer" type="monster" looktype="1382"/>
+	<creature name="Stonebark Titan" type="monster" looktype="1387"/>
+	<creature name="Tomb Guardian" type="monster" looktype="1386"/>
+	<creature name="Wraith Archer" type="monster" looktype="1384"/>
+	<creature name="Arbaziloth master" type="monster" looktype="1371"/>
+	<creature name="Arbaziloth" type="monster" looktype="1370"/>
+	<creature name="brinebrute inferniarch" type="monster" looktype="1366"/>
+	<creature name="broodrider inferniarch" type="monster" looktype="1368"/>
+	<creature name="gralvalon" type="monster" looktype="1365" lookaddon ="3"/>
+	<creature name="hellhunter inferniarch" type="monster" looktype="1365"/>
+	<creature name="malvaroth" type="monster" looktype="1366" lookaddon ="3"/>
+	<creature name="sineater inferniarch" type="monster" looktype="1367"/>
+	<creature name="spellreaper inferniarch" type="monster" looktype="1364"/>
+	<creature name="twisterror" type="monster" looktype="1364" lookaddon="3"/>
+	<creature name="bloodthirst bulgeye" type="monster" looktype="1352"/>
+	<creature name="bogspike lancer" type="monster" looktype="1351"/>
+	<creature name="mossblade hopper" type="monster" looktype="1353"/>
+	<creature name="mystic baguemage" type="monster" looktype="1354"/>
+	<creature name="sunfang croaker" type="monster" looktype="1350"/>
+	<creature name="Swamp Monster" type="monster" looktype="1349"/>
+	<creature name="Mountain Goblin" type="monster" looktype="1347"/>
+	<creature name="Enforced Mountain Goblin" type="monster" looktype="1348"/>
+	<creature name="Hooded Colossus" type="monster" looktype="1328"/>
+	<creature name="Armored Giant" type="monster" looktype="1329"/>
+	<creature name="Axebringer Fiend" type="monster" looktype="1330"/>
+	<creature name="Spiked Enforcer" type="monster" looktype="1331"/>
 	<creature name="Candy Floss Elemental" type="monster" looktype="1289"/>
+	<creature name="Mechanic Goblin" type="monster" looktype="1309"/>
+	<creature name="Bat Goblin" type="monster" looktype="1310"/>
+	<creature name="Mounted Archer Goblin" type="monster" looktype="1311"/>
+	<creature name="Mounted Mage Goblin" type="monster" looktype="1312"/>
+	<creature name="Mounted Warrior Goblin" type="monster" looktype="1313"/>
+	<creature name="Charged Mechanic Goblin" type="monster" looktype="1314"/>
+	<creature name="Frost Hydra" type="monster" looktype="1315"/>
+	<creature name="Frosted Dragon" type="monster" looktype="1316"/>
+	<creature name="Frost Larva" type="monster" looktype="1317"/>
+	<creature name="Angry Parrot" type="monster" looktype="1304"/>
 	<creature name="Candy Horror" type="monster" looktype="1286"/>
 	<creature name="Goggle Cake" type="monster" looktype="1287"/>
 	<creature name="Nible Maw" type="monster" looktype="1284"/>

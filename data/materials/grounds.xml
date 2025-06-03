@@ -3605,4 +3605,38 @@
 		
 		<border align="outer" id="225"/>
 	</brush>
+	
+	<brush name="ice mountain ground" type="ground" server_lookid="28919" z-order="6030">
+		<item id="28919" chance="10"/>
+		<border align="outer" to="none" id="226"/>
+		<border align="outer" id="226"/>
+	</brush>
+
+	<brush name="desert ground" type="ground" server_lookid="29178" z-order="6030">
+		<item id="29178" chance="10"/>
+		<border align="outer" to="none" id="227"/>
+		<border align="outer" id="227"/>
+	</brush>
+	<brush name="desert ground" type="ground" server_lookid="29179" z-order="6030">
+		<item id="29179" chance="10"/>
+		<border align="outer" to="none" id="227"/>
+		<border align="outer" id="227"/>
+	</brush>
+
+
+	<brush name="forest ground" type="ground" server_lookid="29237" z-order="6030">
+		<item id="29237" chance="10"/>
+		<border align="outer" to="none" id="228"/>
+		<border align="outer" id="228"/>
+	</brush>
+	<brush name="forest ground" type="ground" server_lookid="29238" z-order="6030">
+		<item id="29238" chance="10"/>
+		<border align="outer" to="none" id="228"/>
+		<border align="outer" id="228"/>
+	</brush>
+	<brush name="forest ground" type="ground" server_lookid="29239" z-order="6030">
+		<item id="29239" chance="10"/>
+		<border align="outer" to="none" id="228"/>
+		<border align="outer" id="228"/>
+	</brush>
 </materials>

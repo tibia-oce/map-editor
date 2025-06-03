@@ -2434,4 +2434,49 @@
 		<borderitem edge="dsw" item="12181"/>
 		<borderitem edge="dse" item="12180"/>
 	</border>
+	
+	<border id="226"> -- new ice --	
+		<borderitem edge="n"   item="28954"/>
+		<borderitem edge="w"   item="28956"/>
+		<borderitem edge="e"   item="28953"/>
+		<borderitem edge="s"   item="28955"/>
+		<borderitem edge="cnw" item="28957"/>
+		<borderitem edge="cne" item="28958"/>
+		<borderitem edge="cse" item="28960"/>
+		<borderitem edge="csw" item="28959"/>
+		<borderitem edge="dnw" item="28961"/>
+		<borderitem edge="dne" item="28962"/>
+		<borderitem edge="dse" item="28964"/>
+		<borderitem edge="dsw" item="28963"/>
+	</border>
+
+	<border id="227"> -- new desert --	
+		<borderitem edge="n"   item="29192"/>
+		<borderitem edge="w"   item="29190"/>
+		<borderitem edge="e"   item="29189"/>
+		<borderitem edge="s"   item="29191"/>
+		<borderitem edge="cnw" item="29186"/>
+		<borderitem edge="cne" item="29188"/>
+		<borderitem edge="cse" item="29184"/>
+		<borderitem edge="csw" item="29185"/>
+		<borderitem edge="dnw" item="29182"/>
+		<borderitem edge="dne" item="29183"/>
+		<borderitem edge="dse" item="29180"/>
+		<borderitem edge="dsw" item="29181"/>
+	</border>
+
+	<border id="228"> -- new herb --	
+		<borderitem edge="n"   item="29193"/>
+		<borderitem edge="w"   item="29194"/>
+		<borderitem edge="e"   item="29240"/>
+		<borderitem edge="s"   item="29203"/>
+		<borderitem edge="cnw" item="29195"/>
+		<borderitem edge="cne" item="29196"/>
+		<borderitem edge="cse" item="29198"/>
+		<borderitem edge="csw" item="29197"/>
+		<borderitem edge="dnw" item="29199"/>
+		<borderitem edge="dne" item="29200"/>
+		<borderitem edge="dse" item="29202"/>
+		<borderitem edge="dsw" item="29201"/>
+	</border>
 </materials>
