@@ -62,3 +62,5 @@ cmake-build-debug/
 vcpkg_installed/
 vcpkg/
 data/assets/items/items.otb
+data/world
+data/1098/*
