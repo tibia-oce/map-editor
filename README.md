@@ -16,7 +16,36 @@ The assets used in the map editor are shared between a number of other services.
 
 To get started contributing to the Mythbound world map and assets, you'll need to follow these [instructions](https://github.com/tibia-oce/assets?tab=readme-ov-file#prerequisites).
 
-
 ## Committing changes
 
 If you follow the above [instructions](https://github.com/tibia-oce/assets?tab=readme-ov-file#prerequisites), you're changes were tracked against the published assets.
+
+---
+
+# Linux dependencies
+
+```
+sudo apt update
+sudo apt install -y \
+  ninja-build \
+  pkg-config \
+  python3 \
+  python3-venv \
+  python3-dev \
+  libacl1-dev \
+  libblkid-dev \
+  libgcrypt20-dev \
+  liblz4-dev \
+  liblzma-dev \
+  libzstd-dev \
+  libsystemd-dev \
+  libqrencode-dev \
+  bison \
+  python3-jinja2 \
+  libglib2.0-dev \
+  libdbus-1-dev \
+  libatspi2.0-dev \
+  libgirepository1.0-dev \
+  python3-gi
+pip3 install jinja2
+```
